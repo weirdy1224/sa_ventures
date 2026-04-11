@@ -30,8 +30,8 @@ export default function StaffManagement() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 20, fontWeight: 700 }}>Staff Management</h1>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>{staff.length} staff members</p>
+          <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Staff Management</h1>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>{staff.length} staff members</p>
         </div>
         <button onClick={() => setShowModal(true)} className="btn btn-primary">+ Add Staff</button>
       </div>
@@ -49,9 +49,9 @@ export default function StaffManagement() {
                       <span style={{ fontWeight: 600, fontSize: 14 }}>{s.name}</span>
                     </div>
                   </td>
-                  <td style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{s.email}</td>
+                  <td style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{s.email}</td>
                   <td><span className={`badge ${s.isActive ? 'badge-green' : 'badge-red'}`}>{s.isActive ? 'Active' : 'Inactive'}</span></td>
-                  <td style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>{new Date(s.createdAt).toLocaleDateString('en-IN')}</td>
+                  <td style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{new Date(s.createdAt).toLocaleDateString('en-IN')}</td>
                   <td>
                     {s.isActive && <button onClick={() => handleDeactivate(s._id)} className="btn btn-ghost btn-sm" style={{ color: '#FCA5A5', border: '1px solid rgba(239,68,68,0.3)' }}>Deactivate</button>}
                   </td>
@@ -65,23 +65,23 @@ export default function StaffManagement() {
         <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}>
           <div className="modal modal-dark" style={{ maxWidth: 440 }}>
             <div className="modal-header">
-              <h2 style={{ margin: 0, color: 'var(--white)', fontSize: 17 }}>Create Staff Account</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', fontSize: 18 }}>✕</button>
+              <h2 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 17 }}>Create Staff Account</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: 'var(--white)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: 18 }}>✕</button>
             </div>
             <form onSubmit={handleCreate}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <p style={{ margin: 0, fontSize: 13, color: 'rgba(255,255,255,0.5)', background: 'rgba(242,165,26,0.08)', border: '1px solid rgba(242,165,26,0.2)', borderRadius: 8, padding: 12 }}>
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', background: 'rgba(242,165,26,0.08)', border: '1px solid rgba(242,165,26,0.2)', borderRadius: 8, padding: 12 }}>
                   💡 Login credentials will be automatically emailed to the staff member.
                 </p>
                 {[['name', 'Full Name', 'text'], ['email', 'Email Address', 'email'], ['password', 'Initial Password', 'password']].map(([key, label, type]) => (
                   <div key={key} className="form-group">
-                    <label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>{label} *</label>
+                    <label className="form-label" style={{ color: 'var(--text-secondary)' }}>{label} *</label>
                     <input required type={type} value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} className="form-input dark-input" />
                   </div>
                 ))}
               </div>
               <div className="modal-footer" style={{ borderTopColor: 'rgba(255,255,255,0.07)' }}>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'rgba(255,255,255,0.5)' }}>Cancel</button>
+                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'var(--text-secondary)' }}>Cancel</button>
                 <button type="submit" disabled={saving} className="btn btn-primary">{saving ? 'Creating...' : 'Create Account'}</button>
               </div>
             </form>

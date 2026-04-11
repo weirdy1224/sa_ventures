@@ -18,8 +18,8 @@ export default function SecurityLogPage() {
   return (
     <div>
       <div style={{ marginBottom: 24 }}>
-        <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 20, fontWeight: 700 }}>Security Log</h1>
-        <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>Audit trail of all auth events</p>
+        <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Security Log</h1>
+        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Audit trail of all auth events</p>
       </div>
       <div className="card-dark table-wrapper">
         <table className="data-table">
@@ -30,9 +30,9 @@ export default function SecurityLogPage() {
                 <tr key={l._id}>
                   <td><span style={{ padding: '3px 10px', borderRadius: 99, background: `${ACTION_COLORS[l.action] || 'rgba(255,255,255,0.2)'}20`, color: ACTION_COLORS[l.action] || 'rgba(255,255,255,0.6)', fontWeight: 700, fontSize: 12 }}>{l.action?.replace(/_/g, ' ')}</span></td>
                   <td style={{ fontSize: 13 }}>{l.user?.email || l.user?.name || '—'}</td>
-                  <td style={{ fontSize: 12, fontFamily: 'monospace', color: 'rgba(255,255,255,0.5)' }}>{l.ip}</td>
-                  <td style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>{l.userAgent}</td>
-                  <td style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{new Date(l.createdAt).toLocaleString('en-IN')}</td>
+                  <td style={{ fontSize: 12, fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{l.ip}</td>
+                  <td style={{ fontSize: 11, color: 'var(--text-secondary)', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>{l.userAgent}</td>
+                  <td style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{new Date(l.createdAt).toLocaleString('en-IN')}</td>
                 </tr>
               ))}
           </tbody>

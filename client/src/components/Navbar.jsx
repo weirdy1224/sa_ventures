@@ -5,12 +5,12 @@ import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
 
 const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'All Products', to: '/products' },
-  { label: 'Food & Treats', to: '/products?category=food' },
-  { label: 'Accessories', to: '/products?category=accessories' },
-  { label: 'Grooming', to: '/products?category=grooming' },
-  { label: 'Toys', to: '/products?category=toys' },
+  { label: '🐶 Dogs', to: '/products?category=dogs' },
+  { label: '🐱 Cats', to: '/products?category=cats' },
+  { label: '🐦 Birds', to: '/products?category=birds' },
+  { label: '🐟 Fish', to: '/products?category=fish' },
+  { label: '🐹 Small Pets', to: '/products?category=small-pets' },
+  { label: '⚡ Flash Sale', to: '/products?featured=true', isFlash: true },
 ];
 
 export default function Navbar() {
@@ -42,49 +42,59 @@ export default function Navbar() {
     <>
       <header style={{ background: 'var(--white)', position: 'sticky', top: 0, zIndex: 200, boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
         {/* Top bar */}
-        <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 12, textAlign: 'center', padding: '7px 16px', letterSpacing: 0.3 }}>
-          🐾 Free delivery on orders above ₹499 · Use code <strong style={{ color: 'var(--gold)' }}>FIRSTPET</strong> for 10% off your first order
+        <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 13, display: 'flex', justifyContent: 'center', padding: '8px 24px' }}>
+          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 0 }}>
+            <div>
+              🐾 Free Shipping on Orders Over $50!
+            </div>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <Link to="/delivery" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Delivery Portal</Link>
+              <Link to="/staff" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Staff</Link>
+              <Link to="/admin" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Admin</Link>
+            </div>
+          </div>
         </div>
 
         {/* Main header */}
         <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 24px' }}>
           {/* Logo */}
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-            <div style={{ width: 42, height: 42, background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, boxShadow: 'var(--shadow-gold)' }}>
-              🐾
-            </div>
-            <div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 20, color: 'var(--navy)', lineHeight: 1 }}>HOOOMANS</div>
-              <div style={{ fontSize: 10, color: 'var(--text-secondary)', letterSpacing: 1, textTransform: 'uppercase' }}>S&A Ventures</div>
-            </div>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 24, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
           </Link>
 
           {/* Search bar */}
-          <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 520, position: 'relative' }}>
+          <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 480, margin: '0 auto', position: 'relative' }}>
+            <div style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', fontSize: 18 }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
             <input
               id="search-input"
               type="text"
-              placeholder="Search for pet food, toys, grooming..."
+              placeholder="Search for products, brands, or pets..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="form-input"
-              style={{ paddingRight: 48, borderRadius: 'var(--radius-full)', border: '1.5px solid var(--grey-200)', background: 'var(--grey-50)', height: 44 }}
+              style={{ paddingLeft: 44, paddingRight: 16, borderRadius: 'var(--radius-full)', border: '1px solid var(--grey-100)', background: 'var(--grey-50)', height: 44, fontSize: 15 }}
             />
-            <button type="submit" style={{ position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', background: 'var(--gold)', border: 'none', borderRadius: 'var(--radius-full)', width: 34, height: 34, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>
-              🔍
-            </button>
           </form>
 
           {/* Actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+            {/* Wishlist */}
+            <Link to="/account" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-primary)'}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </Link>
+
             {/* Cart */}
-            <button id="cart-btn" onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: 10, borderRadius: 10, transition: 'background 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.background = 'var(--grey-100)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'none'}
+            <button id="cart-btn" onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: 'var(--text-primary)', transition: 'color 0.2s', display: 'flex', alignItems: 'center' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-primary)'}
             >
-              <span style={{ fontSize: 22 }}>🛒</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               {cartCount > 0 && (
-                <span style={{ position: 'absolute', top: 4, right: 4, background: 'var(--gold)', color: 'var(--text-on-gold)', borderRadius: '50%', width: 18, height: 18, fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>
+                <span style={{ position: 'absolute', top: -6, right: -8, background: 'var(--gold)', color: 'var(--text-on-gold)', borderRadius: '50%', width: 20, height: 20, fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>
                   {cartCount > 9 ? '9+' : cartCount}
                 </span>
               )}
@@ -92,15 +102,11 @@ export default function Navbar() {
 
             {/* User menu */}
             <div ref={userMenuRef} style={{ position: 'relative' }}>
-              <button id="user-menu-btn" onClick={() => setUserMenu(!userMenu)} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: '1.5px solid var(--grey-200)', borderRadius: 'var(--radius-full)', padding: '7px 14px', cursor: 'pointer', transition: 'all 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--gold)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--grey-200)'}
+              <button id="user-menu-btn" onClick={() => setUserMenu(!userMenu)} style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)', padding: '4px', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--text-primary)'}
               >
-                <span style={{ fontSize: 18 }}>👤</span>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>
-                  {user ? user.name.split(' ')[0] : 'Account'}
-                </span>
-                <span style={{ fontSize: 10, color: 'var(--grey-400)' }}>▼</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               </button>
 
               {userMenu && (
@@ -135,10 +141,10 @@ export default function Navbar() {
         </div>
 
         {/* Category nav */}
-        <nav style={{ borderTop: '1px solid var(--grey-100)', background: 'var(--cream)', overflowX: 'auto' }}>
-          <div className="container" style={{ display: 'flex', gap: 0, padding: '0 24px' }}>
+        <nav style={{ borderTop: '1px solid var(--white)', background: '#FDF7ED', overflowX: 'auto', borderBottom: '1px solid var(--grey-100)' }}>
+          <div className="container" style={{ display: 'flex', gap: 12, padding: '0 24px' }}>
             {NAV_LINKS.map(link => (
-              <NavLink key={link.to} to={link.to} label={link.label} />
+              <NavLink key={link.label} to={link.to} label={link.label} isFlash={link.isFlash} />
             ))}
           </div>
         </nav>
@@ -166,11 +172,11 @@ function MenuItem({ to, icon, label, onClick }) {
   );
 }
 
-function NavLink({ to, label }) {
+function NavLink({ to, label, isFlash }) {
   return (
-    <Link to={to} style={{ padding: '11px 16px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'all 0.2s', display: 'block' }}
-      onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold-dark)'; e.currentTarget.style.borderBottomColor = 'var(--gold)'; }}
-      onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderBottomColor = 'transparent'; }}
+    <Link to={to} style={{ padding: '14px 16px', fontSize: 14, fontWeight: isFlash ? 700 : 500, color: isFlash ? 'var(--gold-dark)' : 'var(--text-primary)', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'all 0.2s', display: 'block' }}
+      onMouseEnter={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--text-secondary)'; }}
+      onMouseLeave={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--text-primary)'; }}
     >
       {label}
     </Link>

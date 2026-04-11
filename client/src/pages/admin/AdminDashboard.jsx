@@ -32,12 +32,12 @@ export default function AdminDashboard() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 22, fontWeight: 700 }}>Overview</h1>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.45)', fontSize: 13 }}>Store performance at a glance</p>
+          <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 22, fontWeight: 700 }}>Overview</h1>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Store performance at a glance</p>
         </div>
-        <div style={{ display: 'flex', gap: 0, background: 'rgba(255,255,255,0.06)', borderRadius: 10, padding: 4, border: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ display: 'flex', gap: 0, background: 'var(--white)', borderRadius: 10, padding: 4, border: '1px solid var(--grey-100)', boxShadow: 'var(--shadow-sm)' }}>
           {['daily', 'weekly', 'monthly'].map(r => (
-            <button key={r} onClick={() => setRange(r)} style={{ padding: '7px 16px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, background: r === range ? 'var(--gold)' : 'transparent', color: r === range ? 'var(--text-on-gold)' : 'rgba(255,255,255,0.55)', transition: 'all 0.2s', textTransform: 'capitalize' }}>
+            <button key={r} onClick={() => setRange(r)} style={{ padding: '7px 16px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, background: r === range ? 'var(--gold)' : 'transparent', color: r === range ? 'var(--white)' : 'var(--text-secondary)', transition: 'all 0.2s', textTransform: 'capitalize' }}>
               {r}
             </button>
           ))}
@@ -55,26 +55,26 @@ export default function AdminDashboard() {
       {/* Charts */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginBottom: 24 }}>
         {/* Revenue Chart */}
-        <div className="card-dark" style={{ padding: 24 }}>
-          <h3 style={{ margin: '0 0 20px', color: 'var(--white)', fontSize: 15, fontWeight: 700 }}>Revenue Trend</h3>
+        <div className="card" style={{ padding: 24 }}>
+          <h3 style={{ margin: '0 0 20px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>Revenue Trend</h3>
           {data?.revenueData?.length > 0 ? (
             <ResponsiveContainer width="100%" height={260}>
               <LineChart data={data.revenueData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                <XAxis dataKey="_id" stroke="rgba(255,255,255,0.3)" tick={{ fontSize: 11 }} />
-                <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fontSize: 11 }} tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: '#0A2E47', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: 'white' }} formatter={v => [formatPrice(v), 'Revenue']} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--grey-200)" />
+                <XAxis dataKey="_id" stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} />
+                <YAxis stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} />
+                <Tooltip contentStyle={{ background: 'var(--white)', border: '1px solid var(--grey-200)', borderRadius: 8, color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--text-primary)' }} formatter={v => [formatPrice(v), 'Revenue']} />
                 <Line type="monotone" dataKey="revenue" stroke="var(--gold)" strokeWidth={2.5} dot={false} activeDot={{ r: 6, fill: 'var(--gold)' }} />
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div style={{ height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.3)', fontSize: 14 }}>No data for selected period</div>
+            <div style={{ height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No data for selected period</div>
           )}
         </div>
 
         {/* Top Products Pie */}
-        <div className="card-dark" style={{ padding: 24 }}>
-          <h3 style={{ margin: '0 0 20px', color: 'var(--white)', fontSize: 15, fontWeight: 700 }}>Top Products</h3>
+        <div className="card" style={{ padding: 24 }}>
+          <h3 style={{ margin: '0 0 20px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>Top Products</h3>
           {data?.topProducts?.length > 0 ? (
             <>
               <ResponsiveContainer width="100%" height={200}>
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
                   <Pie data={data.topProducts} dataKey="revenue" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
                     {data.topProducts.map((_, idx) => <Cell key={idx} fill={COLORS[idx % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip formatter={v => [formatPrice(v), 'Revenue']} contentStyle={{ background: '#0A2E47', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: 'white' }} />
+                  <Tooltip formatter={v => [formatPrice(v), 'Revenue']} contentStyle={{ background: 'var(--white)', border: '1px solid var(--grey-200)', borderRadius: 8, color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--text-primary)' }} />
                 </PieChart>
               </ResponsiveContainer>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 16 }}>
@@ -90,27 +90,27 @@ export default function AdminDashboard() {
                   <div key={p._id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <div style={{ width: 10, height: 10, borderRadius: 3, background: COLORS[i % COLORS.length] }} />
-                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 120 }}>{p.name}</span>
+                      <span style={{ fontSize: 12, color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 120 }}>{p.name}</span>
                     </div>
-                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>{p.sales} sold</span>
+                    <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{p.sales} sold</span>
                   </div>
                 ))}
               </div>
             </>
           ) : (
-            <div style={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.3)', fontSize: 14 }}>No sales data yet</div>
+            <div style={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No sales data yet</div>
           )}
         </div>
       </div>
 
       {/* Order Status Breakdown */}
-      <div className="card-dark" style={{ padding: 24 }}>
-        <h3 style={{ margin: '0 0 16px', color: 'var(--white)', fontSize: 15, fontWeight: 700 }}>Orders by Status</h3>
+      <div className="card" style={{ padding: 24 }}>
+        <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>Orders by Status</h3>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           {(data?.orderStats || []).map(s => (
-            <div key={s._id} style={{ padding: '12px 20px', background: 'rgba(255,255,255,0.05)', borderRadius: 10, border: '1px solid rgba(255,255,255,0.07)' }}>
-              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--white)', fontFamily: 'var(--font-display)' }}>{s.count}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', textTransform: 'capitalize' }}>{s._id?.replace(/_/g, ' ')}</div>
+            <div key={s._id} style={{ padding: '12px 20px', background: 'var(--grey-50)', borderRadius: 10, border: '1px solid var(--grey-100)' }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{s.count}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-secondary)', textTransform: 'capitalize' }}>{s._id?.replace(/_/g, ' ')}</div>
             </div>
           ))}
         </div>

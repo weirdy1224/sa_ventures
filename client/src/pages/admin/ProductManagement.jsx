@@ -60,8 +60,8 @@ export default function ProductManagement() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 20, fontWeight: 700 }}>Product Management</h1>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>{products.length} products</p>
+          <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Product Management</h1>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>{products.length} products</p>
         </div>
         <button onClick={openCreate} id="add-product-btn" className="btn btn-primary">+ Add Product</button>
       </div>
@@ -85,7 +85,7 @@ export default function ProductManagement() {
                     <img src={p.images?.[0] || 'https://via.placeholder.com/44'} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
                     <div>
                       <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{p.discount > 0 ? `${p.discount}% OFF` : 'No discount'}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{p.discount > 0 ? `${p.discount}% OFF` : 'No discount'}</div>
                     </div>
                   </div>
                 </td>
@@ -114,36 +114,36 @@ export default function ProductManagement() {
         <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}>
           <div className="modal modal-dark" style={{ maxWidth: 560 }}>
             <div className="modal-header">
-              <h2 style={{ margin: 0, color: 'var(--white)', fontSize: 18 }}>{editing ? 'Edit Product' : 'Add Product'}</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', fontSize: 18 }}>✕</button>
+              <h2 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 18 }}>{editing ? 'Edit Product' : 'Add Product'}</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: 'var(--white)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: 18 }}>✕</button>
             </div>
             <form onSubmit={handleSave}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                  <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Name *</label><input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="form-input dark-input" /></div>
-                  <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Category *</label><input required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} placeholder="food, accessories..." className="form-input dark-input" /></div>
-                  <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Price (₹) *</label><input required type="number" min={0} value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} className="form-input dark-input" /></div>
-                  <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Stock *</label><input required type="number" min={0} value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} className="form-input dark-input" /></div>
-                  <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Discount %</label><input type="number" min={0} max={100} value={form.discount} onChange={e => setForm(f => ({ ...f, discount: e.target.value }))} className="form-input dark-input" /></div>
+                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Name *</label><input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="form-input dark-input" /></div>
+                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Category *</label><input required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} placeholder="food, accessories..." className="form-input dark-input" /></div>
+                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Price (₹) *</label><input required type="number" min={0} value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} className="form-input dark-input" /></div>
+                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Stock *</label><input required type="number" min={0} value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} className="form-input dark-input" /></div>
+                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Discount %</label><input type="number" min={0} max={100} value={form.discount} onChange={e => setForm(f => ({ ...f, discount: e.target.value }))} className="form-input dark-input" /></div>
                   <div className="form-group" style={{ justifyContent: 'flex-end', paddingTop: 24 }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', color: 'var(--text-secondary)', fontSize: 14 }}>
                       <input type="checkbox" checked={form.isFeatured} onChange={e => setForm(f => ({ ...f, isFeatured: e.target.checked }))} style={{ accentColor: 'var(--gold)', width: 16, height: 16 }} />
                       Featured Product
                     </label>
                   </div>
                 </div>
-                <div className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Description *</label><textarea required value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="form-input dark-input form-textarea" rows={3} /></div>
+                <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Description *</label><textarea required value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="form-input dark-input form-textarea" rows={3} /></div>
                 <div className="form-group">
-                  <label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Product Images</label>
-                  <button type="button" onClick={() => fileRef.current.click()} style={{ padding: '12px 20px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: 'rgba(255,255,255,0.03)', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: 14, width: '100%' }}>
+                  <label className="form-label" style={{ color: 'var(--text-secondary)' }}>Product Images</label>
+                  <button type="button" onClick={() => fileRef.current.click()} style={{ padding: '12px 20px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: 'var(--white)', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: 14, width: '100%' }}>
                     📷 {files.length ? `${files.length} file(s) selected` : 'Click to upload images'}
                   </button>
                   <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={e => setFiles(Array.from(e.target.files))} />
-                  {editing?.images?.length > 0 && <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>{editing.images.length} existing image(s) — new uploads will be appended</div>}
+                  {editing?.images?.length > 0 && <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4 }}>{editing.images.length} existing image(s) — new uploads will be appended</div>}
                 </div>
               </div>
               <div className="modal-footer" style={{ borderTopColor: 'rgba(255,255,255,0.07)' }}>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'rgba(255,255,255,0.6)' }}>Cancel</button>
+                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'var(--text-secondary)' }}>Cancel</button>
                 <button type="submit" disabled={saving} className="btn btn-primary">{saving ? 'Saving...' : editing ? 'Save Changes' : 'Create Product'}</button>
               </div>
             </form>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
 
 /* ============================================================
    CSS Design System – HOOOMANS / S&A Ventures
@@ -11,9 +11,11 @@
   --gold: #F2A51A;
   --gold-dark: #D4890E;
   --gold-light: #F7C66E;
-  --cream: #FBF7F0;
+  --cream: #FDF7ED;
   --cream-dark: #F3ECE0;
   --white: #FFFFFF;
+  --bg-page: #F4F6F8;
+  --sidebar-bg: #1A2535;
 
   /* Text */
   --text-primary: #1A1A2E;
@@ -37,8 +39,8 @@
   --accent-orange: #F59E0B;
 
   /* Typography */
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Syne', 'Inter', sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Poppins', sans-serif;
 
   /* Spacing */
   --container-max: 1280px;
@@ -67,7 +69,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body {
   font-family: var(--font-body);
   color: var(--text-primary);
-  background: var(--cream);
+  background: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -91,12 +93,12 @@ textarea { resize: vertical; }
 .portal-layout {
   display: flex;
   min-height: 100vh;
-  background: var(--navy);
+  background: var(--bg-page);
 }
 
 .portal-sidebar {
   width: 240px;
-  background: rgba(0,0,0,0.2);
+  background: var(--sidebar-bg);
   border-right: 1px solid rgba(255,255,255,0.05);
   display: flex;
   flex-direction: column;
@@ -113,7 +115,7 @@ textarea { resize: vertical; }
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: var(--navy);
+  background: var(--bg-page);
 }
 
 .portal-topbar {
@@ -121,8 +123,8 @@ textarea { resize: vertical; }
   align-items: center;
   gap: 16px;
   padding: 16px 28px;
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-100);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -131,6 +133,7 @@ textarea { resize: vertical; }
 .portal-content {
   flex: 1;
   padding: 28px;
+  background: var(--bg-page);
   overflow-y: auto;
 }
 
@@ -140,23 +143,22 @@ textarea { resize: vertical; }
   align-items: center;
   gap: 12px;
   padding: 11px 20px;
-  border-radius: 0;
+  margin: 2px 12px;
+  border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.6);
   transition: all 0.15s;
-  border-left: 3px solid transparent;
   cursor: pointer;
 }
 .sidebar-item:hover {
-  background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
 }
 .sidebar-item.active {
-  background: rgba(242,165,26,0.1);
-  border-left-color: var(--gold);
-  color: var(--gold);
-  font-weight: 700;
+  background: var(--gold);
+  color: var(--white);
+  font-weight: 600;
 }
 
 /* ============================================================
@@ -229,11 +231,11 @@ textarea { resize: vertical; }
 .card {
   background: var(--white);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--grey-100);
+  border: none;
   box-shadow: var(--shadow-sm);
 }
 .card-hover { transition: all 0.25s; }
-.card-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.card-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 
 .card-dark {
   background: rgba(255,255,255,0.04);
@@ -311,27 +313,27 @@ textarea { resize: vertical; }
 /* ============================================================
    Tables
    ============================================================ */
-.table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); }
+.table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); background: var(--white); box-shadow: var(--shadow-sm); }
 .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .data-table th {
-  padding: 12px 16px;
+  padding: 14px 16px;
   text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: rgba(255,255,255,0.35);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--grey-100);
   white-space: nowrap;
 }
 .data-table td {
-  padding: 14px 16px;
-  color: rgba(255,255,255,0.75);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 16px 16px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--grey-100);
   vertical-align: middle;
 }
 .data-table tbody tr:last-child td { border-bottom: none; }
-.data-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+.data-table tbody tr:hover { background: var(--grey-50); }
 
 /* ============================================================
    Modals

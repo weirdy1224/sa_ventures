@@ -34,21 +34,21 @@ export default function BannerManagement() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 20, fontWeight: 700 }}>Banner Management</h1>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>Manage homepage carousel banners</p>
+          <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Banner Management</h1>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Manage homepage carousel banners</p>
         </div>
         <button onClick={() => setShowModal(true)} className="btn btn-primary">+ Add Banner</button>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
         {banners.map(b => (
-          <div key={b._id} className="card-dark" style={{ padding: 0, overflow: 'hidden' }}>
+          <div key={b._id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
             <div style={{ position: 'relative', paddingBottom: '45%' }}>
               <img src={b.imageUrl} alt={b.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }} />
               <div style={{ position: 'absolute', bottom: 12, left: 12, right: 12 }}>
-                <div style={{ fontWeight: 700, color: 'var(--white)', fontSize: 14 }}>{b.title}</div>
-                {b.subtitle && <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>{b.subtitle}</div>}
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 14 }}>{b.title}</div>
+                {b.subtitle && <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{b.subtitle}</div>}
               </div>
             </div>
             <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -57,31 +57,31 @@ export default function BannerManagement() {
             </div>
           </div>
         ))}
-        {banners.length === 0 && <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: 60, color: 'rgba(255,255,255,0.3)' }}>No banners yet. Create your first one!</div>}
+        {banners.length === 0 && <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>No banners yet. Create your first one!</div>}
       </div>
 
       {showModal && (
         <div className="modal-overlay" onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}>
           <div className="modal modal-dark" style={{ maxWidth: 480 }}>
             <div className="modal-header">
-              <h2 style={{ margin: 0, color: 'var(--white)', fontSize: 17 }}>Create Banner</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', fontSize: 18 }}>✕</button>
+              <h2 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 17 }}>Create Banner</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: 'var(--white)', border: 'none', borderRadius: 8, padding: '6px 10px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: 18 }}>✕</button>
             </div>
             <form onSubmit={handleSave}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {[['title', 'Title'], ['subtitle', 'Subtitle'], ['linkUrl', 'Link URL (optional)']].map(([k, l]) => (
-                  <div key={k} className="form-group"><label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>{l}</label><input value={form[k]} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} className="form-input dark-input" /></div>
+                  <div key={k} className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>{l}</label><input value={form[k]} onChange={e => setForm(f => ({ ...f, [k]: e.target.value }))} className="form-input dark-input" /></div>
                 ))}
                 <div className="form-group">
-                  <label className="form-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Banner Image *</label>
-                  <button type="button" onClick={() => fileRef.current.click()} style={{ padding: '12px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: 'rgba(255,255,255,0.03)', color: file ? 'var(--accent-green)' : 'rgba(255,255,255,0.5)', cursor: 'pointer', width: '100%', fontSize: 14 }}>
+                  <label className="form-label" style={{ color: 'var(--text-secondary)' }}>Banner Image *</label>
+                  <button type="button" onClick={() => fileRef.current.click()} style={{ padding: '12px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: 'var(--white)', color: file ? 'var(--accent-green)' : 'rgba(255,255,255,0.5)', cursor: 'pointer', width: '100%', fontSize: 14 }}>
                     {file ? `✅ ${file.name}` : '📷 Upload Banner Image'}
                   </button>
                   <input type="file" accept="image/*" ref={fileRef} onChange={e => setFile(e.target.files[0])} style={{ display: 'none' }} />
                 </div>
               </div>
               <div className="modal-footer" style={{ borderTopColor: 'rgba(255,255,255,0.07)' }}>
-                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'rgba(255,255,255,0.5)' }}>Cancel</button>
+                <button type="button" onClick={() => setShowModal(false)} className="btn btn-ghost" style={{ color: 'var(--text-secondary)' }}>Cancel</button>
                 <button type="submit" disabled={saving} className="btn btn-primary">{saving ? 'Saving...' : 'Create Banner'}</button>
               </div>
             </form>

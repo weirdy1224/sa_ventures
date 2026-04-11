@@ -28,15 +28,15 @@ export default function AnalyticsPage() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, color: 'var(--white)', fontSize: 20, fontWeight: 700 }}>Analytics & Reports</h1>
-          <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: 13 }}>Store performance metrics</p>
+          <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Analytics & Reports</h1>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Store performance metrics</p>
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {['daily', 'weekly', 'monthly'].map(r => (
             <button key={r} onClick={() => setRange(r)} className={`btn btn-sm ${r === range ? 'btn-primary' : 'btn-ghost'}`} style={{ textTransform: 'capitalize', color: r !== range ? 'rgba(255,255,255,0.55)' : '', border: r !== range ? '1px solid rgba(255,255,255,0.12)' : '' }}>{r}</button>
           ))}
-          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.7)' }}>📄 PDF</button>
-          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.7)' }}>📊 CSV</button>
+          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--white)', border: '1px solid var(--grey-100)', color: 'var(--text-secondary)' }}>📄 PDF</button>
+          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--white)', border: '1px solid var(--grey-100)', color: 'var(--text-secondary)' }}>📊 CSV</button>
         </div>
       </div>
 
@@ -48,10 +48,10 @@ export default function AnalyticsPage() {
             { icon: '👥', label: 'New Customers', value: data.newCustomers || 0 },
             { icon: '📦', label: 'Top Category', value: data.topProducts?.[0]?.name || '—' },
           ].map(s => (
-            <div key={s.label} className="card-dark" style={{ padding: 20 }}>
+            <div key={s.label} className="card" style={{ padding: 20 }}>
               <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--white)', fontFamily: 'var(--font-display)' }}>{s.value}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{s.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
         </div>
       )}
 
-      {!data && <div style={{ textAlign: 'center', padding: 60, color: 'rgba(255,255,255,0.3)' }}>Loading analytics...</div>}
+      {!data && <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>Loading analytics...</div>}
 
       <style>{`@media (max-width: 768px) { div[style*="repeat(4, 1fr)"] { grid-template-columns: 1fr 1fr !important; } }`}</style>
     </div>
