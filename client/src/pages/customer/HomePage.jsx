@@ -4,11 +4,11 @@ import api from '../../api/axiosInstance';
 import ProductCard from '../../components/ProductCard';
 
 const CATEGORIES = [
-  { name: 'Dogs', icon: '🐕', slug: 'dogs', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Cats', icon: '🐈', slug: 'cats', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Birds', icon: '🦜', slug: 'birds', image: 'https://images.unsplash.com/photo-1552728089-5710d345e691?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Fish', icon: '🐠', slug: 'fish', image: 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Small Pets', icon: '🐁', slug: 'small-pets', image: 'https://images.unsplash.com/photo-1425082661705-1834bfd0bbd1?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Dogs', icon: '🐶', slug: 'dogs', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Cats', icon: '🐱', slug: 'cats', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Birds', icon: '🐦', slug: 'birds', image: 'https://images.unsplash.com/photo-1552728089-5710d345e691?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Fish', icon: '🐟', slug: 'fish', image: 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Small Pets', icon: '🐹', slug: 'small-pets', image: 'https://images.unsplash.com/photo-1425082661705-1834bfd0bbd1?q=80&w=600&auto=format&fit=crop' },
 ];
 
 export default function HomePage() {
@@ -52,7 +52,7 @@ export default function HomePage() {
               <span style={{ color: '#B45309', fontSize: 13, fontWeight: 700 }}>🎉 Spring Sale - Up to 50% Off</span>
             </div>
             
-            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 64, fontWeight: 900, color: 'var(--navy)', lineHeight: 1.1, margin: '0 0 24px', letterSpacing: '-1px' }}>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 64, fontWeight: 700, color: 'var(--navy)', lineHeight: 1.1, margin: '0 0 24px', letterSpacing: '-1px' }}>
               Everything Your<br />Pet Needs, All in<br />One Place
             </h1>
             

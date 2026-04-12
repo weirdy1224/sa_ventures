@@ -44,7 +44,7 @@ export default function Navbar() {
         {/* Top bar */}
         <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 13, display: 'flex', justifyContent: 'center', padding: '8px 24px' }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 0 }}>
-            <div>
+            <div style={{ fontWeight: 650, marginLeft: 18 }}>
               🐾 Free Shipping on Orders Over $50!
             </div>
             <div style={{ display: 'flex', gap: 16 }}>
@@ -59,7 +59,7 @@ export default function Navbar() {
         <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 24px' }}>
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 24, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 30, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
           </Link>
 
           {/* Search bar */}
