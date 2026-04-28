@@ -2,12 +2,14 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import PortalTopbar from '../components/PortalTopbar';
+import { PortalThemeProvider, usePortalTheme } from '../context/PortalThemeContext';
 
-export default function PortalLayout({ role }) {
+function PortalShell({ role }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { theme } = usePortalTheme();
 
   return (
-    <div className="portal-layout">
+    <div className="portal-layout" data-portal-theme={theme}>
       <Sidebar role={role} isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       {sidebarOpen && (
         <div
@@ -22,5 +24,13 @@ export default function PortalLayout({ role }) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PortalLayout({ role }) {
+  return (
+    <PortalThemeProvider>
+      <PortalShell role={role} />
+    </PortalThemeProvider>
   );
 }

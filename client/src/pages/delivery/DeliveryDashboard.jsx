@@ -43,8 +43,8 @@ export default function DeliveryDashboard() {
           <div key={s.label} className="card" style={{ padding: 20, display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, background: `${s.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>{s.icon}</div>
             <div>
-              <div style={{ fontSize: 26, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{s.value}</div>
-              <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{s.label}</div>
+              <div style={{ fontSize: 26, fontWeight: 800, color: 'var(--portal-text-primary, var(--text-primary))', fontFamily: 'var(--font-display)' }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: 'var(--portal-text-secondary, var(--text-secondary))' }}>{s.label}</div>
             </div>
           </div>
         ))}
@@ -61,22 +61,22 @@ export default function DeliveryDashboard() {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {orders.map(o => (
-              <Link key={o._id} to={`/delivery/orders/${o._id}`} style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '18px 22px', background: 'var(--white)', border: '1px solid var(--grey-100)', borderRadius: 12, transition: 'all 0.2s', cursor: 'pointer', textDecoration: 'none' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.borderColor = 'rgba(242,165,26,0.3)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; }}
+              <Link key={o._id} to={`/delivery/orders/${o._id}`} style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '18px 22px', background: 'var(--portal-card-bg, var(--white))', border: '1px solid var(--portal-border, var(--grey-100))', borderRadius: 12, transition: 'all 0.2s', cursor: 'pointer', textDecoration: 'none' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--portal-table-hover)'; e.currentTarget.style.borderColor = 'var(--gold)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'var(--portal-card-bg, var(--white))'; e.currentTarget.style.borderColor = 'var(--portal-border, var(--grey-100))'; }}
               >
                 <div style={{ width: 48, height: 48, background: 'rgba(242,165,26,0.15)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>📦</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>Order #{o._id?.toString().slice(-8).toUpperCase()}</div>
-                  <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--portal-text-primary, var(--text-primary))', marginBottom: 4 }}>Order #{o._id?.toString().slice(-8).toUpperCase()}</div>
+                  <div style={{ fontSize: 13, color: 'var(--portal-text-secondary, var(--text-secondary))' }}>
                     📍 {o.address?.line1}, {o.address?.city}
                   </div>
                 </div>
                 <div style={{ textAlign: 'right', flexShrink: 0 }}>
                   <OrderStatusBadge status={o.status} />
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 6 }}>{new Date(o.createdAt).toLocaleDateString('en-IN')}</div>
+                  <div style={{ fontSize: 12, color: 'var(--portal-text-secondary, var(--text-secondary))', marginTop: 6 }}>{new Date(o.createdAt).toLocaleDateString('en-IN')}</div>
                 </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: 18 }}>›</div>
+                <div style={{ color: 'var(--portal-text-secondary, var(--text-secondary))', fontSize: 18 }}>›</div>
               </Link>
             ))}
           </div>

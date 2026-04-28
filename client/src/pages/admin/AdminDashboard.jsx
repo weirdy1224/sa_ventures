@@ -35,9 +35,9 @@ export default function AdminDashboard() {
           <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 22, fontWeight: 700 }}>Overview</h1>
           <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Store performance at a glance</p>
         </div>
-        <div style={{ display: 'flex', gap: 0, background: 'var(--white)', borderRadius: 10, padding: 4, border: '1px solid var(--grey-100)', boxShadow: 'var(--shadow-sm)' }}>
+        <div style={{ display: 'flex', gap: 0, background: 'var(--portal-card-bg, var(--white))', borderRadius: 10, padding: 4, border: '1px solid var(--portal-border, var(--grey-100))', boxShadow: 'var(--shadow-sm)' }}>
           {['daily', 'weekly', 'monthly'].map(r => (
-            <button key={r} onClick={() => setRange(r)} style={{ padding: '7px 16px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, background: r === range ? 'var(--gold)' : 'transparent', color: r === range ? 'var(--white)' : 'var(--text-secondary)', transition: 'all 0.2s', textTransform: 'capitalize' }}>
+            <button key={r} onClick={() => setRange(r)} style={{ padding: '7px 16px', borderRadius: 7, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, background: r === range ? 'var(--gold)' : 'transparent', color: r === range ? 'var(--white)' : 'var(--portal-text-secondary, var(--text-secondary))', transition: 'all 0.2s', textTransform: 'capitalize' }}>
               {r}
             </button>
           ))}
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--grey-200)" />
                 <XAxis dataKey="_id" stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} />
                 <YAxis stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} tickFormatter={v => `₹${(v/1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: 'var(--white)', border: '1px solid var(--grey-200)', borderRadius: 8, color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--text-primary)' }} formatter={v => [formatPrice(v), 'Revenue']} />
+                <Tooltip contentStyle={{ background: 'var(--portal-card-bg, var(--white))', border: '1px solid var(--portal-border, var(--grey-200))', borderRadius: 8, color: 'var(--portal-text-primary, var(--text-primary))', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--portal-text-primary, var(--text-primary))' }} formatter={v => [formatPrice(v), 'Revenue']} />
                 <Line type="monotone" dataKey="revenue" stroke="var(--gold)" strokeWidth={2.5} dot={false} activeDot={{ r: 6, fill: 'var(--gold)' }} />
               </LineChart>
             </ResponsiveContainer>
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
                   <Pie data={data.topProducts} dataKey="revenue" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
                     {data.topProducts.map((_, idx) => <Cell key={idx} fill={COLORS[idx % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip formatter={v => [formatPrice(v), 'Revenue']} contentStyle={{ background: 'var(--white)', border: '1px solid var(--grey-200)', borderRadius: 8, color: 'var(--text-primary)', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--text-primary)' }} />
+                  <Tooltip formatter={v => [formatPrice(v), 'Revenue']} contentStyle={{ background: 'var(--portal-card-bg, var(--white))', border: '1px solid var(--portal-border, var(--grey-200))', borderRadius: 8, color: 'var(--portal-text-primary, var(--text-primary))', boxShadow: 'var(--shadow-sm)' }} itemStyle={{ color: 'var(--portal-text-primary, var(--text-primary))' }} />
                 </PieChart>
               </ResponsiveContainer>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 16 }}>
@@ -108,9 +108,9 @@ export default function AdminDashboard() {
         <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>Orders by Status</h3>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           {(data?.orderStats || []).map(s => (
-            <div key={s._id} style={{ padding: '12px 20px', background: 'var(--grey-50)', borderRadius: 10, border: '1px solid var(--grey-100)' }}>
-              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>{s.count}</div>
-              <div style={{ fontSize: 12, color: 'var(--text-secondary)', textTransform: 'capitalize' }}>{s._id?.replace(/_/g, ' ')}</div>
+            <div key={s._id} style={{ padding: '12px 20px', background: 'var(--portal-input-bg, var(--grey-50))', borderRadius: 10, border: '1px solid var(--portal-border, var(--grey-100))' }}>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--portal-text-primary, var(--text-primary))', fontFamily: 'var(--font-display)' }}>{s.count}</div>
+              <div style={{ fontSize: 12, color: 'var(--portal-text-secondary, var(--text-secondary))', textTransform: 'capitalize' }}>{s._id?.replace(/_/g, ' ')}</div>
             </div>
           ))}
         </div>

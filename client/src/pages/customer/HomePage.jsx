@@ -4,11 +4,15 @@ import api from '../../api/axiosInstance';
 import ProductCard from '../../components/ProductCard';
 
 const CATEGORIES = [
-  { name: 'Dogs', icon: '🐶', slug: 'dogs', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Cats', icon: '🐱', slug: 'cats', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Birds', icon: '🐦', slug: 'birds', image: 'https://images.unsplash.com/photo-1552728089-5710d345e691?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Fish', icon: '🐟', slug: 'fish', image: 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Small Pets', icon: '🐹', slug: 'small-pets', image: 'https://images.unsplash.com/photo-1425082661705-1834bfd0bbd1?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Grooming',    icon: '✂️',  slug: 'grooming',    image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Food & Nutrition', icon: '🍖', slug: 'food',   image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Accessories', icon: '🎀',  slug: 'accessories', image: 'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Toys & Play', icon: '🎾',  slug: 'toys',        image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Health & Wellness', icon: '💊', slug: 'health', image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Clothing',    icon: '👕',  slug: 'clothing',    image: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Beds & Furniture', icon: '🛏️', slug: 'beds',   image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Training',    icon: '🏅',  slug: 'training',    image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Travel & Outdoors', icon: '🎒', slug: 'travel', image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=600&auto=format&fit=crop' },
 ];
 
 export default function HomePage() {
@@ -45,9 +49,9 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Banner */}
-      <section style={{ background: '#FDF7ED', minHeight: 560, display: 'flex', alignItems: 'center' }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 40, width: '100%' }}>
-          <div style={{ flex: 1, paddingRight: 40 }}>
+      <section style={{ background: '#FDF7ED', minHeight: 'calc(100vh - 80px)', display: 'flex', alignItems: 'center', padding: '40px 0' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 60, width: '100%' }}>
+          <div style={{ flex: 1, paddingRight: 20 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'var(--gold)', borderRadius: 99, padding: '8px 16px', marginBottom: 24, marginTop : 20 }}>
               <span style={{ color: '#B45309', fontSize: 13, fontWeight: 700 }}>🎉 Spring Sale - Up to 50% Off</span>
             </div>
@@ -66,9 +70,9 @@ export default function HomePage() {
             </div>
           </div>
           
-          <div style={{ flex: 1, height: 480, position: 'relative' }}>
+          <div style={{ flex: 1.1, height: '70vh', minHeight: 500, maxHeight: 750, position: 'relative' }}>
             <img 
-              src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=800" 
+              src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=1200" 
               alt="Happy golden retriever" 
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '40px 40px 100px 40px', boxShadow: 'var(--shadow-xl)' }}
             />
@@ -76,23 +80,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Shop by Pet */}
+
+      {/* Shop by Category */}
       <section style={{ padding: '64px 0' }} className="container">
-        <SectionHeader title="Shop by Pet" subtitle="Find everything your furry, feathered, or finned friend needs" center={true} />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16, marginTop: 40 }}>
+        <SectionHeader title="Shop by Category" subtitle="Everything your pet needs, organized just for you" center={true} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginTop: 40 }}>
           {CATEGORIES.map(cat => (
-            <Link key={cat.slug} to={`/products?category=${cat.slug}`} style={{ position: 'relative', overflow: 'hidden', borderRadius: 16, aspectRatio: '1/1', background: 'var(--navy)', textDecoration: 'none', transition: 'all 0.3s', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 20, textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.1)'; e.currentTarget.querySelector('img').style.transform = 'scale(1.05)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)'; e.currentTarget.querySelector('img').style.transform = ''; }}
+            <Link
+              key={cat.slug}
+              to={`/products?category=${cat.slug}`}
+              style={{ position: 'relative', overflow: 'hidden', borderRadius: 20, aspectRatio: '16/9', background: 'var(--navy)', textDecoration: 'none', transition: 'all 0.3s', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '20px 24px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 16px 32px rgba(0,0,0,0.14)'; e.currentTarget.querySelector('img').style.transform = 'scale(1.06)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)'; e.currentTarget.querySelector('img').style.transform = ''; }}
             >
-              <img src={cat.image} alt={cat.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', opacity: 0.9 }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, transparent 100%)' }} />
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <div style={{ fontSize: 24, marginBottom: 4 }}>{cat.icon}</div>
-                <div style={{ color: 'var(--white)', fontWeight: 800, fontSize: 16 }}>{cat.name}</div>
+              <img src={cat.image} alt={cat.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease', opacity: 0.85 }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 50%, transparent 100%)' }} />
+              <div style={{ position: 'relative', zIndex: 2, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: 26, lineHeight: 1, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}>{cat.icon}</span>
+                <div>
+                  <div style={{ color: 'var(--white)', fontWeight: 800, fontSize: 17, lineHeight: 1.2 }}>{cat.name}</div>
+                  <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 12, marginTop: 2, fontWeight: 500 }}>Shop now →</div>
+                </div>
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Full-width Promo Banner */}
+      <section style={{ background: '#F2A51A', padding: '24px 0' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <div style={{ fontSize: 36, opacity: 0.9 }}>⚡</div>
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, color: 'var(--white)', margin: '0 0 2px', letterSpacing: '-0.3px' }}>
+                Flash Sale - Today Only!
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: 15, margin: 0, fontWeight: 500 }}>
+                Up to 50% off on selected items.
+              </p>
+            </div>
+          </div>
+          <Link to="/products" className="btn btn-round" style={{ background: 'var(--white)', color: 'var(--gold)', fontSize: 16, padding: '20px 20px', fontWeight: 500, boxShadow: '0 4px 12px rgba(0,0,0,0.1)', flexShrink: 0 }} onMouseEnter={e => { e.currentTarget.style.background = '#000000'; e.currentTarget.style.color = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--gold-dark)'; }}>
+            Shop Deals
+          </Link>
         </div>
       </section>
 
@@ -100,7 +131,7 @@ export default function HomePage() {
       {featuredProducts.length > 0 && (
         <section style={{ padding: '48px 0 64px', background: 'var(--cream-dark)' }}>
           <div className="container">
-            <SectionHeader title="⭐ Featured Products" subtitle="Handpicked by our team" action={{ label: 'View All', to: '/products?featured=true' }} />
+            <SectionHeader title="Best Sellers" subtitle="Most loved products by pet parents" action={{ label: 'View All', to: '/products?featured=true' }} />
             {loading ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginTop: 32 }}>
                 {[1,2,3,4].map(i => <div key={i} className="skeleton" style={{ height: 360, borderRadius: 16 }} />)}
@@ -114,36 +145,48 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Promo Banner */}
-      <section style={{ padding: '0 0 64px' }}>
-        <div className="container">
-          <div style={{ background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)', borderRadius: 'var(--radius-xl)', padding: '48px 60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32, overflow: 'hidden', position: 'relative' }}>
-            <div style={{ position: 'absolute', right: -60, top: -60, width: 300, height: 300, background: 'rgba(242,165,26,0.07)', borderRadius: '50%' }} />
-            <div style={{ position: 'absolute', right: 60, bottom: -80, width: 200, height: 200, background: 'rgba(242,165,26,0.05)', borderRadius: '50%' }} />
-            <div style={{ position: 'relative' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(242,165,26,0.15)', border: '1px solid rgba(242,165,26,0.3)', borderRadius: 99, padding: '5px 14px', marginBottom: 16 }}>
-                <span style={{ color: 'var(--gold)', fontWeight: 700, fontSize: 12 }}>🎉 FIRST ORDER OFFER</span>
-              </div>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 900, color: 'var(--white)', margin: '0 0 10px' }}>Get 10% off your first order</h2>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 16, margin: 0 }}>Use code <strong style={{ color: 'var(--gold)' }}>FIRSTPET</strong> at checkout. Min. order ₹299.</p>
-            </div>
-            <Link to="/register" className="btn btn-primary btn-lg btn-round" style={{ flexShrink: 0 }}>Claim Offer →</Link>
-          </div>
-        </div>
-      </section>
 
       {/* New Arrivals */}
       {newArrivals.length > 0 && (
-        <section style={{ padding: '0 0 80px' }}>
+        <section style={{ padding: '0 0 80px', marginTop : 100 }}>
           <div className="container">
-            <SectionHeader title="🆕 New Arrivals" subtitle="Just landed in store" action={{ label: 'Shop All', to: '/products?sort=-createdAt' }} />
+            <SectionHeader title="New Arrivals" subtitle="Just landed in store" action={{ label: 'Shop All', to: '/products?sort=-createdAt' }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginTop: 32 }}>
               {newArrivals.map(p => <ProductCard key={p._id} product={p} />)}
             </div>
           </div>
         </section>
       )}
+      {/* Features/Values Section */}
+      <section style={{ borderBottom: '1px solid var(--grey-100)', padding: '56px 0', background: 'var(--white)' }}>
+        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, textAlign: 'center' }}>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#FFF8EB', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 600, color: 'var(--navy)', marginBottom: 8 }}>Free Shipping</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 14, margin: 0 }}>On orders over $50</p>
+          </div>
 
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#FFF8EB', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, color: 'var(--navy)', marginBottom: 8 }}>Premium Quality</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 14, margin: 0 }}>Trusted brands only</p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#FFF8EB', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            </div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700, color: 'var(--navy)', marginBottom: 8 }}>Best Prices</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 14, margin: 0 }}>Guaranteed lowest prices</p>
+          </div>
+
+        </div>
+      </section>
       {/* Newsletter / Join Our Pack */}
       <section style={{ padding: '64px 0 0 0' }}>
         <div style={{ background: 'var(--navy)', width: '100%', padding: '80px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>

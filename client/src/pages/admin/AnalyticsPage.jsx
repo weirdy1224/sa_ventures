@@ -33,10 +33,10 @@ export default function AnalyticsPage() {
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {['daily', 'weekly', 'monthly'].map(r => (
-            <button key={r} onClick={() => setRange(r)} className={`btn btn-sm ${r === range ? 'btn-primary' : 'btn-ghost'}`} style={{ textTransform: 'capitalize', color: r !== range ? 'rgba(255,255,255,0.55)' : '', border: r !== range ? '1px solid rgba(255,255,255,0.12)' : '' }}>{r}</button>
+            <button key={r} onClick={() => setRange(r)} className={`btn btn-sm ${r === range ? 'btn-primary' : 'btn-ghost'}`} style={{ textTransform: 'capitalize', color: r !== range ? 'var(--text-secondary)' : '', border: r !== range ? '1px solid var(--portal-border)' : '' }}>{r}</button>
           ))}
-          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--white)', border: '1px solid var(--grey-100)', color: 'var(--text-secondary)' }}>📄 PDF</button>
-          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--white)', border: '1px solid var(--grey-100)', color: 'var(--text-secondary)' }}>📊 CSV</button>
+          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}>📄 PDF</button>
+          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}>📊 CSV</button>
         </div>
       </div>
 

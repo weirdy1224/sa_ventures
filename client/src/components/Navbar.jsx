@@ -5,12 +5,16 @@ import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
 
 const NAV_LINKS = [
-  { label: '🐶 Dogs', to: '/products?category=dogs' },
-  { label: '🐱 Cats', to: '/products?category=cats' },
-  { label: '🐦 Birds', to: '/products?category=birds' },
-  { label: '🐟 Fish', to: '/products?category=fish' },
-  { label: '🐹 Small Pets', to: '/products?category=small-pets' },
-  { label: '⚡ Flash Sale', to: '/products?featured=true', isFlash: true },
+  { label: 'Grooming',         to: '/products?category=grooming' },
+  { label: 'Food & Nutrition', to: '/products?category=food' },
+  { label: 'Accessories',      to: '/products?category=accessories' },
+  { label: 'Toys & Play',      to: '/products?category=toys' },
+  { label: 'Health',           to: '/products?category=health' },
+  { label: 'Clothing',         to: '/products?category=clothing' },
+  { label: 'Beds',             to: '/products?category=beds' },
+  { label: 'Training',         to: '/products?category=training' },
+  { label: 'Travel',           to: '/products?category=travel' },
+  { label: 'Flash Sale',       to: '/products?featured=true', isFlash: true },
 ];
 
 export default function Navbar() {
@@ -44,7 +48,7 @@ export default function Navbar() {
         {/* Top bar */}
         <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 13, display: 'flex', justifyContent: 'center', padding: '8px 24px' }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 0 }}>
-            <div style={{ fontWeight: 650, marginLeft: 18 }}>
+            <div style={{ fontWeight: 500, marginLeft: 18 }}>
               🐾 Free Shipping on Orders Over $50!
             </div>
             <div style={{ display: 'flex', gap: 16 }}>
@@ -141,8 +145,8 @@ export default function Navbar() {
         </div>
 
         {/* Category nav */}
-        <nav style={{ borderTop: '1px solid var(--white)', background: '#FDF7ED', overflowX: 'auto', borderBottom: '1px solid var(--grey-100)' }}>
-          <div className="container" style={{ display: 'flex', gap: 12, padding: '0 24px' }}>
+        <nav style={{ borderTop: '1px solid var(--white)', background: '#white', overflowX: 'auto', borderBottom: '1px solid var(--grey-100)', borderTop : '1px solid var(--grey-100)', boxShadow : '0 4px 12px rgba(0,0,0,0.05)'}}>
+          <div className="container" style={{ display: 'flex', gap: 12, padding: '0 24px'}}>
             {NAV_LINKS.map(link => (
               <NavLink key={link.label} to={link.to} label={link.label} isFlash={link.isFlash} />
             ))}
@@ -175,7 +179,7 @@ function MenuItem({ to, icon, label, onClick }) {
 function NavLink({ to, label, isFlash }) {
   return (
     <Link to={to} style={{ padding: '14px 16px', fontSize: 14, fontWeight: isFlash ? 700 : 500, color: isFlash ? 'var(--gold-dark)' : 'var(--text-primary)', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'all 0.2s', display: 'block' }}
-      onMouseEnter={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--text-secondary)'; }}
+      onMouseEnter={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--gold)'; }}
       onMouseLeave={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--text-primary)'; }}
     >
       {label}

@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import api from '../../api/axiosInstance';
 import ProductCard from '../../components/ProductCard';
 
-const CATEGORIES = ['food', 'accessories', 'grooming', 'toys', 'health', 'beds'];
+const CATEGORIES = ['grooming', 'food', 'accessories', 'toys', 'health', 'clothing', 'beds', 'training', 'travel'];
 const SORTS = [
   { value: '-createdAt', label: 'Newest First' },
   { value: 'price', label: 'Price: Low to High' },

@@ -4,6 +4,18 @@ import toast from 'react-hot-toast';
 
 const formatPrice = (n) => `₹${Number(n).toLocaleString('en-IN')}`;
 
+const PET_CATEGORIES = [
+  { value: 'grooming',    label: 'Grooming' },
+  { value: 'food',        label: 'Food & Nutrition' },
+  { value: 'accessories', label: 'Accessories' },
+  { value: 'toys',        label: 'Toys & Play' },
+  { value: 'health',      label: 'Health & Wellness' },
+  { value: 'clothing',    label: 'Clothing & Apparel' },
+  { value: 'beds',        label: 'Beds & Furniture' },
+  { value: 'training',    label: 'Training' },
+  { value: 'travel',      label: 'Travel & Outdoors' },
+];
+
 export default function ProductManagement() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -121,7 +133,20 @@ export default function ProductManagement() {
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                   <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Name *</label><input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="form-input dark-input" /></div>
-                  <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Category *</label><input required value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} placeholder="food, accessories..." className="form-input dark-input" /></div>
+                  <div className="form-group">
+                    <label className="form-label" style={{ color: 'var(--text-secondary)' }}>Category *</label>
+                    <select
+                      required
+                      value={form.category}
+                      onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
+                      className="form-input form-select dark-input"
+                    >
+                      <option value="">Select a category...</option>
+                      {PET_CATEGORIES.map(c => (
+                        <option key={c.value} value={c.value}>{c.label}</option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Price (₹) *</label><input required type="number" min={0} value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} className="form-input dark-input" /></div>
                   <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Stock *</label><input required type="number" min={0} value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} className="form-input dark-input" /></div>
                   <div className="form-group"><label className="form-label" style={{ color: 'var(--text-secondary)' }}>Discount %</label><input type="number" min={0} max={100} value={form.discount} onChange={e => setForm(f => ({ ...f, discount: e.target.value }))} className="form-input dark-input" /></div>

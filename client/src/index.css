@@ -58,6 +58,39 @@
   --shadow-lg: 0 10px 40px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.08);
   --shadow-xl: 0 20px 60px rgba(0,0,0,0.2);
   --shadow-gold: 0 4px 20px rgba(242,165,26,0.3);
+
+  /* ── Portal Theme Tokens (Dark Mode Defaults) ─────── */
+  --portal-sidebar-bg: #0B1120;
+  --portal-sidebar-border: rgba(255,255,255,0.05);
+  --portal-sidebar-logo-text: #FFFFFF;
+  --portal-sidebar-section-label: rgba(255,255,255,0.3);
+  --portal-sidebar-item-text: rgba(255,255,255,0.6);
+  --portal-sidebar-item-hover-bg: rgba(255,255,255,0.08);
+  --portal-sidebar-item-hover-text: rgba(255,255,255,0.9);
+  --portal-sidebar-bottom-border: rgba(255,255,255,0.06);
+  --portal-sidebar-scrollbar: rgba(255,255,255,0.1);
+  
+  --portal-bg-page: #0B1120;
+  --portal-main-bg: #0B1120;
+  --portal-topbar-bg: #111827;
+  --portal-topbar-border: rgba(255,255,255,0.05);
+  --portal-topbar-toggle-bg: rgba(255,255,255,0.1);
+  --portal-content-bg: #0B1120;
+  
+  --portal-table-wrapper-bg: #111827;
+  --portal-table-hover: rgba(255,255,255,0.03);
+  --portal-modal-bg: #111827;
+  --portal-card-bg: #111827;
+  
+  --portal-theme-btn-bg: rgba(255,255,255,0.1);
+  --portal-theme-btn-text: #FFFFFF;
+  --portal-theme-btn-hover: rgba(255,255,255,0.18);
+  
+  --portal-text-primary: #F8FAFC;
+  --portal-text-secondary: #94A3B8;
+  --portal-border: rgba(255,255,255,0.08);
+  --portal-input-bg: rgba(255,255,255,0.03);
+  --portal-input-border: rgba(255,255,255,0.1);
 }
 
 /* ============================================================
@@ -93,13 +126,22 @@ textarea { resize: vertical; }
 .portal-layout {
   display: flex;
   min-height: 100vh;
-  background: var(--bg-page);
+  background: var(--portal-bg-page);
+  color: var(--portal-text-primary, var(--text-primary));
+  --text-primary: var(--portal-text-primary);
+  --text-secondary: var(--portal-text-secondary);
+}
+.portal-layout h1, .portal-layout h2, .portal-layout h3 {
+  color: var(--portal-text-primary, var(--text-primary)) !important;
+}
+.portal-layout p, .portal-layout .text-secondary {
+  color: var(--portal-text-secondary, var(--text-secondary)) !important;
 }
 
 .portal-sidebar {
   width: 240px;
-  background: var(--sidebar-bg);
-  border-right: 1px solid rgba(255,255,255,0.05);
+  background: var(--portal-sidebar-bg);
+  border-right: 1px solid var(--portal-sidebar-border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -107,7 +149,7 @@ textarea { resize: vertical; }
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  transition: transform 0.3s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s ease;
 }
 
 .portal-main {
@@ -115,7 +157,8 @@ textarea { resize: vertical; }
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: var(--bg-page);
+  background: var(--portal-main-bg);
+  transition: background 0.25s ease;
 }
 
 .portal-topbar {
@@ -123,18 +166,20 @@ textarea { resize: vertical; }
   align-items: center;
   gap: 16px;
   padding: 16px 28px;
-  background: var(--white);
-  border-bottom: 1px solid var(--grey-100);
+  background: var(--portal-topbar-bg);
+  border-bottom: 1px solid var(--portal-topbar-border);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .portal-content {
   flex: 1;
   padding: 28px;
-  background: var(--bg-page);
+  background: var(--portal-content-bg);
   overflow-y: auto;
+  transition: background 0.25s ease;
 }
 
 /* Sidebar items */
@@ -147,13 +192,13 @@ textarea { resize: vertical; }
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  transition: all 0.15s;
+  color: var(--portal-sidebar-item-text);
+  transition: background 0.15s, color 0.15s;
   cursor: pointer;
 }
 .sidebar-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--portal-sidebar-item-hover-bg);
+  color: var(--portal-sidebar-item-hover-text);
 }
 .sidebar-item.active {
   background: var(--gold);
@@ -413,7 +458,101 @@ textarea { resize: vertical; }
 .portal-sidebar::-webkit-scrollbar-track,
 .portal-content::-webkit-scrollbar-track { background: transparent; }
 .portal-sidebar::-webkit-scrollbar-thumb,
-.portal-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+.portal-content::-webkit-scrollbar-thumb { background: var(--portal-sidebar-scrollbar); border-radius: 2px; }
+
+/* ============================================================
+   Portal Light Theme Override
+   [data-portal-theme="light"] — scoped, never affects customer pages
+   ============================================================ */
+[data-portal-theme="light"] {
+  --portal-sidebar-bg: #FFFFFF;
+  --portal-sidebar-border: #E5E7EB;
+  --portal-sidebar-logo-text: #1A1A2E;
+  --portal-sidebar-section-label: rgba(30,41,59,0.4);
+  --portal-sidebar-item-text: rgba(30,41,59,0.65);
+  --portal-sidebar-item-hover-bg: rgba(0,0,0,0.05);
+  --portal-sidebar-item-hover-text: #1A1A2E;
+  --portal-sidebar-bottom-border: #E5E7EB;
+  --portal-sidebar-scrollbar: rgba(0,0,0,0.1);
+  --portal-bg-page: #F0F4F8;
+  --portal-main-bg: #F0F4F8;
+  --portal-topbar-bg: #FFFFFF;
+  --portal-topbar-border: #E5E7EB;
+  --portal-topbar-toggle-bg: #F3F4F6;
+  --portal-content-bg: #F0F4F8;
+  --portal-table-wrapper-bg: #FFFFFF;
+  --portal-table-hover: #F8FAFC;
+  --portal-modal-bg: #FFFFFF;
+  --portal-card-bg: #FFFFFF;
+  --portal-theme-btn-bg: rgba(30,41,59,0.07);
+  --portal-theme-btn-text: #374151;
+  --portal-theme-btn-hover: rgba(30,41,59,0.13);
+  --portal-text-primary: #1A1A2E;
+  --portal-text-secondary: #6B7280;
+  --portal-border: #E5E7EB;
+  --portal-input-bg: #FFFFFF;
+  --portal-input-border: #E5E7EB;
+}
+
+/* ============================================================
+   Portal Component Dynamic Theming
+   Applies dynamic --portal-* tokens to components inside the portal
+   ============================================================ */
+.portal-layout .card,
+.portal-layout .card-dark,
+.portal-layout .table-wrapper {
+  background: var(--portal-card-bg) !important;
+  border: 1px solid var(--portal-border, rgba(255,255,255,0.08)) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.portal-layout .modal,
+.portal-layout .modal-dark {
+  background: var(--portal-modal-bg) !important;
+  border: 1px solid var(--portal-border, rgba(255,255,255,0.08)) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+.portal-layout .modal-header h2 {
+  color: var(--portal-text-primary) !important;
+}
+
+.portal-layout .data-table th {
+  color: var(--portal-text-secondary) !important;
+  border-bottom-color: var(--portal-border, rgba(255,255,255,0.08)) !important;
+}
+
+.portal-layout .data-table td {
+  color: var(--portal-text-primary) !important;
+  border-bottom-color: var(--portal-border, rgba(255,255,255,0.08)) !important;
+}
+
+.portal-layout .data-table tbody tr:hover {
+  background: var(--portal-table-hover) !important;
+}
+
+.portal-layout .form-input,
+.portal-layout .dark-input {
+  background: var(--portal-input-bg, rgba(255,255,255,0.03)) !important;
+  border: 1.5px solid var(--portal-input-border, rgba(255,255,255,0.1)) !important;
+  color: var(--portal-text-primary) !important;
+}
+
+.portal-layout .form-input:focus,
+.portal-layout .dark-input:focus {
+  border-color: var(--gold) !important;
+}
+
+.portal-layout .form-input::placeholder,
+.portal-layout .dark-input::placeholder {
+  color: var(--portal-text-secondary) !important;
+}
+
+.portal-layout select.form-input option,
+.portal-layout select.dark-input option {
+  background: var(--portal-card-bg) !important;
+  color: var(--portal-text-primary) !important;
+}
 
 /* ============================================================
    Responsive
