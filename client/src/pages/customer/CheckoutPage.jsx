@@ -17,6 +17,10 @@ export default function CheckoutPage() {
   const [newAddress, setNewAddress] = useState({ label: 'Home', line1: '', city: '', state: '', pincode: '' });
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [processing, setProcessing] = useState(false);
+  
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState('');
 
   useEffect(() => {
     if (addresses.length > 0) {
@@ -30,7 +34,10 @@ export default function CheckoutPage() {
     setProcessing(true);
 
     try {
-      const res = await api.post('/orders', { addressId: selectedAddress });
+      const res = await api.post('/orders', { 
+        addressId: selectedAddress,
+        couponCode: appliedCoupon?.code || undefined 
+      });
       const { razorpayOrderId, amount, currency, key } = res.data;
 
       const options = {
@@ -70,8 +77,22 @@ export default function CheckoutPage() {
     }
   };
 
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponError('');
+    try {
+      const res = await api.get(`/coupons/validate?code=${couponCode}`);
+      setAppliedCoupon({ code: res.data.code, discountPercentage: res.data.discountPercentage });
+      toast.success(`Coupon applied! ${res.data.discountPercentage}% off`);
+    } catch (err) {
+      setCouponError(err.response?.data?.error || 'Invalid coupon');
+      setAppliedCoupon(null);
+    }
+  };
+
   const delivery = cartTotal >= 499 ? 0 : 60;
-  const total = cartTotal + delivery;
+  const discountAmount = appliedCoupon ? Math.round(cartTotal * (appliedCoupon.discountPercentage / 100)) : 0;
+  const total = Math.max(cartTotal - discountAmount + delivery, 0);
 
   return (
     <div className="container" style={{ padding: '40px 24px' }}>
@@ -147,7 +168,31 @@ export default function CheckoutPage() {
               })}
             </div>
             <div style={{ borderTop: '1px solid var(--grey-100)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              
+              {/* Coupon Section */}
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <input 
+                  type="text" 
+                  placeholder="Coupon code" 
+                  className="form-input" 
+                  style={{ flex: 1, padding: '8px 12px', fontSize: 13 }}
+                  value={couponCode}
+                  onChange={e => setCouponCode(e.target.value.toUpperCase())}
+                  disabled={!!appliedCoupon}
+                />
+                {!appliedCoupon ? (
+                  <button onClick={handleApplyCoupon} className="btn btn-secondary btn-sm" disabled={!couponCode.trim()}>Apply</button>
+                ) : (
+                  <button onClick={() => { setAppliedCoupon(null); setCouponCode(''); setCouponError(''); }} className="btn btn-ghost btn-sm" style={{ color: 'var(--accent-red)' }}>Remove</button>
+                )}
+              </div>
+              {couponError && <div style={{ color: 'var(--accent-red)', fontSize: 12, marginTop: -6 }}>{couponError}</div>}
+              {appliedCoupon && <div style={{ color: 'var(--accent-green)', fontSize: 12, marginTop: -6 }}>'{appliedCoupon.code}' applied ({appliedCoupon.discountPercentage}% off)</div>}
+
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}><span style={{ color: 'var(--text-secondary)' }}>Subtotal</span><span>{formatPrice(cartTotal)}</span></div>
+              {appliedCoupon && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}><span style={{ color: 'var(--accent-green)' }}>Discount ({appliedCoupon.discountPercentage}%)</span><span style={{ color: 'var(--accent-green)' }}>-{formatPrice(discountAmount)}</span></div>
+              )}
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}><span style={{ color: 'var(--text-secondary)' }}>Delivery</span><span style={{ color: delivery === 0 ? 'var(--accent-green)' : '' }}>{delivery === 0 ? 'FREE' : formatPrice(delivery)}</span></div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid var(--grey-100)', fontWeight: 700 }}>
                 <span>Total</span>

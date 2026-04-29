@@ -22,7 +22,7 @@ const ADMIN_LINKS = [
   { icon: <Icon name="orders" />, label: 'Orders', to: '/admin/orders' },
   { icon: <Icon name="analytics" />, label: 'Analytics', to: '/admin/analytics' },
   { icon: <Icon name="users" />, label: 'Users', to: '/admin/staff' },
-  { icon: <Icon name="promotions" />, label: 'Promotions', to: '/admin/banners' },
+  { icon: <Icon name="promotions" />, label: 'Promotions', to: '/admin/coupons' },
   { icon: <Icon name="reviews" />, label: 'Reviews', to: '/admin/reviews' },
 ];
 

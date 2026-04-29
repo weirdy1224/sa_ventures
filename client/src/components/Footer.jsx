@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 const FOOTER_LINKS = {
   'Shop': [
     { label: 'All Products', to: '/products' },
-    { label: 'Pet Food', to: '/products?category=food' },
-    { label: 'Accessories', to: '/products?category=accessories' },
-    { label: 'Grooming', to: '/products?category=grooming' },
-    { label: 'Toys', to: '/products?category=toys' },
+    { label: 'Fur enhancement', to: '/products?category=fur-enhancement' },
+    { label: 'Reduce Shedding', to: '/products?category=reduce-shedding' },
+    { label: 'Bone / Joint Health', to: '/products?category=bone-joint-health' },
+    { label: 'Tick Prevention', to: '/products?category=tick-prevention' },
+    { label: 'Hydration', to: '/products?category=hydration-electrolyte' },
   ],
   'Account': [
     { label: 'My Account', to: '/account' },

@@ -5,16 +5,12 @@ import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
 
 const NAV_LINKS = [
-  { label: 'Grooming',         to: '/products?category=grooming' },
-  { label: 'Food & Nutrition', to: '/products?category=food' },
-  { label: 'Accessories',      to: '/products?category=accessories' },
-  { label: 'Toys & Play',      to: '/products?category=toys' },
-  { label: 'Health',           to: '/products?category=health' },
-  { label: 'Clothing',         to: '/products?category=clothing' },
-  { label: 'Beds',             to: '/products?category=beds' },
-  { label: 'Training',         to: '/products?category=training' },
-  { label: 'Travel',           to: '/products?category=travel' },
-  { label: 'Flash Sale',       to: '/products?featured=true', isFlash: true },
+  { label: 'Fur enhancement', to: '/products?category=fur-enhancement' },
+  { label: 'Reduce Shedding Supplements', to: '/products?category=reduce-shedding' },
+  { label: 'Bone Health Tablets', to: '/products?category=bone-joint-health' },
+  { label: 'Tick Prevention Tablets', to: '/products?category=tick-prevention' },
+  { label: 'Hydration Tablets', to: '/products?category=hydration-electrolyte' },
+  { label: 'Flash Sale', to: '/products?featured=true', isFlash: true },
 ];
 
 export default function Navbar() {

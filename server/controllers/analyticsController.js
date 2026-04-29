@@ -3,7 +3,6 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 const SalesCache = require('../models/SalesCache');
 const SecurityLog = require('../models/SecurityLog');
-const Banner = require('../models/Banner');
 const { generatePDF } = require('../utils/pdfGenerator');
 const { generateCSV } = require('../utils/csvGenerator');
 
@@ -91,45 +90,6 @@ exports.exportReport = async (req, res) => {
       res.set({ 'Content-Type': 'text/csv', 'Content-Disposition': 'attachment; filename="report.csv"' });
       res.send(csv);
     }
-  } catch (err) { res.status(500).json({ error: err.message }); }
-};
-
-// GET /api/banners
-exports.getBanners = async (req, res) => {
-  try {
-    const all = req.query.all === 'true';
-    const filter = all ? {} : { isActive: true };
-    const banners = await Banner.find(filter).sort('sortOrder');
-    res.json({ banners });
-  } catch (err) { res.status(500).json({ error: err.message }); }
-};
-
-// POST /api/banners
-exports.createBanner = async (req, res) => {
-  try {
-    const { linkUrl, title, subtitle, isActive, sortOrder } = req.body;
-    const imageUrl = req.file ? `/uploads/banners/${req.file.filename}` : req.body.imageUrl;
-    const banner = await Banner.create({ imageUrl, linkUrl, title, subtitle, isActive: isActive !== 'false', sortOrder: Number(sortOrder) || 0 });
-    res.status(201).json({ banner });
-  } catch (err) { res.status(500).json({ error: err.message }); }
-};
-
-// PATCH /api/banners/:id
-exports.updateBanner = async (req, res) => {
-  try {
-    const updates = { ...req.body };
-    if (req.file) updates.imageUrl = `/uploads/banners/${req.file.filename}`;
-    const banner = await Banner.findByIdAndUpdate(req.params.id, updates, { new: true });
-    if (!banner) return res.status(404).json({ error: 'Banner not found' });
-    res.json({ banner });
-  } catch (err) { res.status(500).json({ error: err.message }); }
-};
-
-// DELETE /api/banners/:id
-exports.deleteBanner = async (req, res) => {
-  try {
-    await Banner.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Banner deleted' });
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
 

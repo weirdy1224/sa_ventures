@@ -5,15 +5,11 @@ import toast from 'react-hot-toast';
 const formatPrice = (n) => `₹${Number(n).toLocaleString('en-IN')}`;
 
 const PET_CATEGORIES = [
-  { value: 'grooming',    label: 'Grooming' },
-  { value: 'food',        label: 'Food & Nutrition' },
-  { value: 'accessories', label: 'Accessories' },
-  { value: 'toys',        label: 'Toys & Play' },
-  { value: 'health',      label: 'Health & Wellness' },
-  { value: 'clothing',    label: 'Clothing & Apparel' },
-  { value: 'beds',        label: 'Beds & Furniture' },
-  { value: 'training',    label: 'Training' },
-  { value: 'travel',      label: 'Travel & Outdoors' },
+  { value: 'fur-enhancement', label: 'Fur enhancement / Skin & Coat' },
+  { value: 'reduce-shedding', label: 'Reduce Shedding Supplements' },
+  { value: 'bone-joint-health', label: 'Bone / Joint Health Tablets' },
+  { value: 'tick-prevention', label: 'Tick Prevention Tablets (Oral)' },
+  { value: 'hydration-electrolyte', label: 'Hydration / Electrolyte Tablets' },
 ];
 
 export default function ProductManagement() {
@@ -101,7 +97,7 @@ export default function ProductManagement() {
                     </div>
                   </div>
                 </td>
-                <td><span className="badge badge-grey" style={{ textTransform: 'capitalize' }}>{p.category}</span></td>
+                <td><span className="badge badge-grey" style={{ textTransform: 'capitalize' }}>{PET_CATEGORIES.find(c => c.value === p.category)?.label || p.category}</span></td>
                 <td>{formatPrice(p.price)}</td>
                 <td>
                   <span style={{ color: p.stock === 0 ? 'var(--accent-red)' : p.stock <= 10 ? '#F59E0B' : 'var(--accent-green)', fontWeight: 700 }}>

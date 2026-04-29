@@ -3,7 +3,15 @@ import { useSearchParams } from 'react-router-dom';
 import api from '../../api/axiosInstance';
 import ProductCard from '../../components/ProductCard';
 
-const CATEGORIES = ['grooming', 'food', 'accessories', 'toys', 'health', 'clothing', 'beds', 'training', 'travel'];
+const CATEGORY_MAP = {
+  'fur-enhancement': 'Fur enhancement / Skin & Coat',
+  'reduce-shedding': 'Reduce Shedding Supplements',
+  'bone-joint-health': 'Bone / Joint Health Tablets',
+  'tick-prevention': 'Tick Prevention Tablets (Oral)',
+  'hydration-electrolyte': 'Hydration / Electrolyte Tablets'
+};
+const CATEGORIES = Object.keys(CATEGORY_MAP);
+
 const SORTS = [
   { value: '-createdAt', label: 'Newest First' },
   { value: 'price', label: 'Price: Low to High' },
@@ -83,7 +91,7 @@ export default function ProductListPage() {
                 {(categories.length ? categories : CATEGORIES).map(cat => (
                   <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
                     <input type="radio" name="cat" checked={category === cat} onChange={() => setParam('category', cat)} style={{ accentColor: 'var(--gold)' }} />
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    {CATEGORY_MAP[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))}
                   </label>
                 ))}
               </div>

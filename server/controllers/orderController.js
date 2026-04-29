@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
+const Coupon = require('../models/Coupon');
 const { sendOrderConfirmation, sendOrderStatusUpdate } = require('../services/emailService');
 
 const getRazorpay = () => new Razorpay({
@@ -85,9 +86,20 @@ exports.createOrder = async (req, res) => {
     }
 
     let discountAmount = 0;
-    // TODO: coupon validation
+    if (couponCode) {
+      const coupon = await Coupon.findOne({ code: couponCode.toUpperCase() });
+      if (!coupon) return res.status(400).json({ error: 'Invalid coupon code' });
+      if (!coupon.isValid()) return res.status(400).json({ error: 'Coupon is expired, inactive, or fully used' });
+      
+      discountAmount = Math.round(totalAmount * (coupon.discountPercentage / 100));
+      
+      // Increment uses
+      coupon.currentUses += 1;
+      await coupon.save();
+    }
 
-    const finalAmount = Math.max(totalAmount - discountAmount, 0);
+    const deliveryFee = totalAmount >= 499 ? 0 : 60;
+    const finalAmount = Math.max(totalAmount - discountAmount + deliveryFee, 0);
 
     // Create Razorpay order
     const razorpayInstance = getRazorpay();

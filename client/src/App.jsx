@@ -24,7 +24,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ProductManagement from './pages/admin/ProductManagement';
 import OrderManagement from './pages/admin/OrderManagement';
 import StaffManagement from './pages/admin/StaffManagement';
-import BannerManagement from './pages/admin/BannerManagement';
+import CouponManagement from './pages/admin/CouponManagement';
 import AnalyticsPage from './pages/admin/AnalyticsPage';
 import SecurityLogPage from './pages/admin/SecurityLogPage';
 import ReviewModeration from './pages/admin/ReviewModeration';
@@ -69,7 +69,7 @@ export default function App() {
         <Route path="products" element={<ProductManagement />} />
         <Route path="orders" element={<OrderManagement />} />
         <Route path="staff" element={<StaffManagement />} />
-        <Route path="banners" element={<BannerManagement />} />
+        <Route path="coupons" element={<CouponManagement />} />
         <Route path="analytics" element={<AnalyticsPage />} />
         <Route path="security" element={<SecurityLogPage />} />
         <Route path="reviews" element={<ReviewModeration />} />
