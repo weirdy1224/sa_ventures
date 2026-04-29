@@ -29,9 +29,12 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => { setMobileMenu(false); }, [navigate]);
+
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+    if (searchQuery.trim()) { navigate(`/products?search=${encodeURIComponent(searchQuery)}`); setMobileMenu(false); }
   };
 
   const handleLogout = async () => { await logout(); navigate('/'); };
@@ -45,9 +48,9 @@ export default function Navbar() {
         <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 13, display: 'flex', justifyContent: 'center', padding: '8px 24px' }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 0 }}>
             <div style={{ fontWeight: 500, marginLeft: 18 }}>
-              🐾 Free Shipping on Orders Over $50!
+              🐾 Free Shipping on Orders Over ₹500!
             </div>
-            <div style={{ display: 'flex', gap: 16 }}>
+            <div className="navbar-topbar-links" style={{ display: 'flex', gap: 16 }}>
               <Link to="/delivery" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Delivery Portal</Link>
               <Link to="/staff" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Staff</Link>
               <Link to="/admin" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Admin</Link>
@@ -56,21 +59,21 @@ export default function Navbar() {
         </div>
 
         {/* Main header */}
-        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 24px' }}>
+        <div className="navbar-main container" style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 24px' }}>
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 30, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
+            <div className="navbar-logo" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
           </Link>
 
           {/* Search bar */}
-          <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 480, margin: '0 auto', position: 'relative' }}>
+          <form onSubmit={handleSearch} className="navbar-search" style={{ flex: 1, maxWidth: 480, margin: '0 auto', position: 'relative' }}>
             <div style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', fontSize: 18 }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
             <input
               id="search-input"
               type="text"
-              placeholder="Search for products, brands, or pets..."
+              placeholder="Search for products..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="form-input"
@@ -79,14 +82,7 @@ export default function Navbar() {
           </form>
 
           {/* Actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
-            {/* Wishlist */}
-            <Link to="/account" style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-primary)'}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-            </Link>
-
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0, marginLeft: 'auto' }}>
             {/* Cart */}
             <button id="cart-btn" onClick={() => setCartOpen(true)} style={{ position: 'relative', background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: 'var(--text-primary)', transition: 'color 0.2s', display: 'flex', alignItems: 'center' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
@@ -136,27 +132,68 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu toggle */}
-            <button onClick={() => setMobileMenu(!mobileMenu)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, padding: 6 }} className="mobile-menu-btn">☰</button>
+            <button
+              id="mobile-menu-btn"
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="mobile-menu-btn"
+              style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, padding: 6, color: 'var(--text-primary)' }}
+            >
+              {mobileMenu ? '✕' : '☰'}
+            </button>
           </div>
         </div>
 
+        {/* Mobile search — shown only when menu is open on small screens */}
+        {mobileMenu && (
+          <div className="mobile-search-bar" style={{ padding: '0 16px 12px', borderTop: '1px solid var(--grey-100)' }}>
+            <form onSubmit={handleSearch} style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+              <input type="text" placeholder="Search products..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="form-input" style={{ paddingLeft: 40, borderRadius: 'var(--radius-full)', background: 'var(--grey-50)', border: '1px solid var(--grey-100)', height: 40, fontSize: 14 }} />
+            </form>
+          </div>
+        )}
+
         {/* Category nav */}
-        <nav style={{ borderTop: '1px solid var(--white)', background: '#white', overflowX: 'auto', borderBottom: '1px solid var(--grey-100)', borderTop : '1px solid var(--grey-100)', boxShadow : '0 4px 12px rgba(0,0,0,0.05)'}}>
-          <div className="container" style={{ display: 'flex', gap: 12, padding: '0 24px'}}>
+        <nav style={{ overflowX: 'auto', borderBottom: '1px solid var(--grey-100)', borderTop: '1px solid var(--grey-100)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+          <div className="container" style={{ display: 'flex', gap: 4, padding: '0 16px' }}>
             {NAV_LINKS.map(link => (
               <NavLink key={link.label} to={link.to} label={link.label} isFlash={link.isFlash} />
             ))}
           </div>
         </nav>
+
+        {/* Mobile dropdown menu */}
+        {mobileMenu && (
+          <div style={{ background: 'var(--white)', borderTop: '1px solid var(--grey-100)', padding: '8px 0 16px', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+            {user ? (
+              <>
+                <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--grey-100)', marginBottom: 8 }}>
+                  <div style={{ fontWeight: 700 }}>{user.name}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{user.email}</div>
+                </div>
+                {user.role === 'customer' && <MobileLink to="/account" label="📋 My Account" onClick={() => setMobileMenu(false)} />}
+                {portalLink && <MobileLink to={portalLink} label="⚙️ Dashboard" onClick={() => setMobileMenu(false)} />}
+                <button onClick={() => { handleLogout(); setMobileMenu(false); }} style={{ width: '100%', textAlign: 'left', padding: '11px 20px', background: 'none', border: 'none', fontSize: 14, color: 'var(--accent-red)', fontWeight: 500, cursor: 'pointer' }}>🚪 Sign Out</button>
+              </>
+            ) : (
+              <>
+                <MobileLink to="/login" label="🔑 Sign In" onClick={() => setMobileMenu(false)} />
+                <MobileLink to="/register" label="✨ Create Account" onClick={() => setMobileMenu(false)} />
+              </>
+            )}
+            <div style={{ borderTop: '1px solid var(--grey-100)', marginTop: 8, paddingTop: 8 }}>
+              <div style={{ padding: '4px 20px 8px', fontSize: 11, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Portals</div>
+              <MobileLink to="/delivery" label="🚚 Delivery Portal" onClick={() => setMobileMenu(false)} />
+              <MobileLink to="/staff" label="👔 Staff Portal" onClick={() => setMobileMenu(false)} />
+              <MobileLink to="/admin" label="🛠 Admin" onClick={() => setMobileMenu(false)} />
+            </div>
+          </div>
+        )}
       </header>
 
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
-      <style>{`
-        @media (max-width: 768px) {
-          .mobile-menu-btn { display: block !important; }
-        }
-      `}</style>
     </>
   );
 }
@@ -172,9 +209,18 @@ function MenuItem({ to, icon, label, onClick }) {
   );
 }
 
+function MobileLink({ to, label, onClick }) {
+  return (
+    <Link to={to} onClick={onClick} style={{ display: 'block', padding: '11px 20px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}
+      onMouseEnter={e => e.currentTarget.style.background = 'var(--grey-50)'}
+      onMouseLeave={e => e.currentTarget.style.background = 'none'}
+    >{label}</Link>
+  );
+}
+
 function NavLink({ to, label, isFlash }) {
   return (
-    <Link to={to} style={{ padding: '14px 16px', fontSize: 14, fontWeight: isFlash ? 700 : 500, color: isFlash ? 'var(--gold-dark)' : 'var(--text-primary)', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'all 0.2s', display: 'block' }}
+    <Link to={to} style={{ padding: '12px 14px', fontSize: 13, fontWeight: isFlash ? 700 : 500, color: isFlash ? 'var(--gold-dark)' : 'var(--text-primary)', whiteSpace: 'nowrap', borderBottom: '2px solid transparent', transition: 'all 0.2s', display: 'block' }}
       onMouseEnter={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--gold)'; }}
       onMouseLeave={e => { e.currentTarget.style.color = isFlash ? 'var(--gold-dark)' : 'var(--text-primary)'; }}
     >

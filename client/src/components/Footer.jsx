@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.75)', marginTop: 80 }}>
       <div className="container" style={{ padding: '60px 24px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
@@ -39,8 +39,8 @@ export default function Footer() {
             </p>
             {/* Newsletter */}
             <div style={{ display: 'flex', gap: 0 }}>
-              <input type="email" placeholder="Your email address" style={{ flex: 1, padding: '10px 14px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRight: 'none', borderRadius: '8px 0 0 8px', color: 'var(--white)', fontSize: 13, outline: 'none' }} />
-              <button style={{ padding: '10px 18px', background: 'var(--gold)', color: 'var(--text-on-gold)', border: 'none', borderRadius: '0 8px 8px 0', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>Subscribe</button>
+              <input type="email" placeholder="Your email address" style={{ flex: 1, padding: '10px 14px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRight: 'none', borderRadius: '8px 0 0 8px', color: 'var(--white)', fontSize: 13, outline: 'none', minWidth: 0 }} />
+              <button style={{ padding: '10px 18px', background: 'var(--gold)', color: 'var(--text-on-gold)', border: 'none', borderRadius: '0 8px 8px 0', fontWeight: 700, fontSize: 13, cursor: 'pointer', flexShrink: 0 }}>Subscribe</button>
             </div>
           </div>
 
@@ -63,9 +63,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+        <div className="footer-bottom" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>© {new Date().getFullYear()} S&A Ventures · HOOOMANS™. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: 20 }}>
+          <div className="footer-policies" style={{ display: 'flex', gap: 20 }}>
             {['Privacy Policy', 'Terms of Service', 'Shipping Policy'].map(t => (
               <a key={t} href="#" style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', transition: 'color 0.15s' }}
                 onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
@@ -77,11 +77,13 @@ export default function Footer() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          footer .container > div:first-child { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 1024px) {
+          .footer-grid { grid-template-columns: 1fr 1fr !important; }
         }
-        @media (max-width: 480px) {
-          footer .container > div:first-child { grid-template-columns: 1fr !important; }
+        @media (max-width: 640px) {
+          .footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .footer-bottom { flex-direction: column; align-items: flex-start; }
+          .footer-policies { flex-wrap: wrap; gap: 12px; }
         }
       `}</style>
     </footer>

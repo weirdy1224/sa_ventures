@@ -32,7 +32,7 @@ export default function CartDrawer({ isOpen, onClose }) {
       {isOpen && <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 500, backdropFilter: 'blur(3px)', animation: 'fadeIn 0.2s ease' }} />}
 
       {/* Drawer */}
-      <div style={{
+      <div className="cart-drawer-panel" style={{
         position: 'fixed', top: 0, right: 0, width: 400, height: '100vh', background: 'var(--white)',
         zIndex: 600, boxShadow: '-8px 0 40px rgba(0,0,0,0.15)',
         transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
@@ -101,7 +101,7 @@ export default function CartDrawer({ isOpen, onClose }) {
         )}
       </div>
 
-      <style>{`@media (max-width: 480px) { .cart-drawer { width: 100vw !important; } }`}</style>
+      <style>{`@media (max-width: 480px) { .cart-drawer-panel { width: 100vw !important; } }`}</style>
     </>
   );
 }

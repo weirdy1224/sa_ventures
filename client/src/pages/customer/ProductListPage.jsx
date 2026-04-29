@@ -25,6 +25,7 @@ export default function ProductListPage() {
   const [pagination, setPagination] = useState({ total: 0, totalPages: 1 });
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [filterOpen, setFilterOpen] = useState(false);
 
   const search = searchParams.get('search') || '';
   const category = searchParams.get('category') || '';
@@ -64,57 +65,80 @@ export default function ProductListPage() {
     setSearchParams(p);
   };
 
-  return (
-    <div className="container" style={{ padding: '40px 24px' }}>
-      {/* Header */}
-      <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800, margin: '0 0 6px' }}>
-          {search ? `Search: "${search}"` : category ? `${category.charAt(0).toUpperCase() + category.slice(1)}` : 'All Products'}
-        </h1>
-        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>{pagination.total} products found</p>
+  const FilterPanel = () => (
+    <div className="card" style={{ padding: 24 }}>
+      <h3 style={{ margin: '0 0 20px', fontSize: 15, fontWeight: 700 }}>Filters</h3>
+
+      {/* Category */}
+      <div style={{ marginBottom: 24 }}>
+        <h4 style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Category</h4>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
+            <input type="radio" name="cat" checked={!category} onChange={() => setParam('category', '')} style={{ accentColor: 'var(--gold)' }} />
+            All Categories
+          </label>
+          {(categories.length ? categories : CATEGORIES).map(cat => (
+            <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
+              <input type="radio" name="cat" checked={category === cat} onChange={() => { setParam('category', cat); setFilterOpen(false); }} style={{ accentColor: 'var(--gold)' }} />
+              {CATEGORY_MAP[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))}
+            </label>
+          ))}
+        </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 32 }}>
+      {/* Price Range */}
+      <div style={{ marginBottom: 24 }}>
+        <h4 style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Price Range</h4>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input type="number" placeholder="Min" defaultValue={minPrice} onBlur={e => setParam('minPrice', e.target.value)} className="form-input" style={{ flex: 1 }} />
+          <input type="number" placeholder="Max" defaultValue={maxPrice} onBlur={e => setParam('maxPrice', e.target.value)} className="form-input" style={{ flex: 1 }} />
+        </div>
+      </div>
+
+      <button onClick={() => { setSearchParams({}); setFilterOpen(false); }} className="btn btn-ghost w-full" style={{ border: '1px solid var(--grey-200)', fontSize: 13 }}>Clear Filters</button>
+    </div>
+  );
+
+  return (
+    <div className="container" style={{ padding: '32px 24px' }}>
+      {/* Header */}
+      <div style={{ marginBottom: 24, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, margin: '0 0 4px' }}>
+            {search ? `Search: "${search}"` : category ? (CATEGORY_MAP[category] || category) : 'All Products'}
+          </h1>
+          <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: 14 }}>{pagination.total} products found</p>
+        </div>
+        {/* Mobile filter toggle */}
+        <button
+          className="mobile-filter-btn btn btn-outline"
+          onClick={() => setFilterOpen(!filterOpen)}
+          style={{ fontSize: 13, padding: '8px 16px' }}
+        >
+          🔧 {filterOpen ? 'Hide' : 'Show'} Filters
+        </button>
+      </div>
+
+      {/* Mobile filter panel */}
+      {filterOpen && (
+        <div className="mobile-filter-panel" style={{ marginBottom: 20 }}>
+          <FilterPanel />
+        </div>
+      )}
+
+      <div className="product-list-layout" style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 32 }}>
         {/* Sidebar Filters */}
-        <aside>
-          <div className="card" style={{ padding: 24, position: 'sticky', top: 100 }}>
-            <h3 style={{ margin: '0 0 20px', fontSize: 15, fontWeight: 700 }}>Filters</h3>
-
-            {/* Category */}
-            <div style={{ marginBottom: 24 }}>
-              <h4 style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Category</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
-                  <input type="radio" name="cat" checked={!category} onChange={() => setParam('category', '')} style={{ accentColor: 'var(--gold)' }} />
-                  All Categories
-                </label>
-                {(categories.length ? categories : CATEGORIES).map(cat => (
-                  <label key={cat} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
-                    <input type="radio" name="cat" checked={category === cat} onChange={() => setParam('category', cat)} style={{ accentColor: 'var(--gold)' }} />
-                    {CATEGORY_MAP[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))}
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Range */}
-            <div style={{ marginBottom: 24 }}>
-              <h4 style={{ margin: '0 0 12px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Price Range</h4>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input type="number" placeholder="Min" defaultValue={minPrice} onBlur={e => setParam('minPrice', e.target.value)} className="form-input" style={{ flex: 1 }} />
-                <input type="number" placeholder="Max" defaultValue={maxPrice} onBlur={e => setParam('maxPrice', e.target.value)} className="form-input" style={{ flex: 1 }} />
-              </div>
-            </div>
-
-            <button onClick={() => setSearchParams({})} className="btn btn-ghost w-full" style={{ border: '1px solid var(--grey-200)', fontSize: 13 }}>Clear Filters</button>
+        <aside className="product-list-sidebar">
+          <div style={{ position: 'sticky', top: 100 }}>
+            <FilterPanel />
           </div>
         </aside>
 
         {/* Products Grid */}
         <div>
           {/* Sort Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, background: 'var(--white)', padding: '12px 16px', borderRadius: 10, boxShadow: 'var(--shadow-sm)' }}>
-            <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Showing {products.length} of {pagination.total} results</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, background: 'var(--white)', padding: '12px 16px', borderRadius: 10, boxShadow: 'var(--shadow-sm)', flexWrap: 'wrap', gap: 8 }}>
+            <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Showing {products.length} of {pagination.total}</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <label style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Sort:</label>
               <select value={sort} onChange={e => setParam('sort', e.target.value)} className="form-input form-select" style={{ width: 'auto', fontSize: 13, padding: '6px 32px 6px 10px', height: 36 }}>
@@ -124,7 +148,7 @@ export default function ProductListPage() {
           </div>
 
           {loading ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            <div className="product-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
               {Array(12).fill(0).map((_, i) => <div key={i} className="skeleton" style={{ height: 360, borderRadius: 16 }} />)}
             </div>
           ) : products.length === 0 ? (
@@ -134,14 +158,14 @@ export default function ProductListPage() {
               <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your search or filters</p>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            <div className="product-grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
               {products.map(p => <ProductCard key={p._id} product={p} />)}
             </div>
           )}
 
           {/* Pagination */}
           {pagination.totalPages > 1 && (
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 40, flexWrap: 'wrap' }}>
               {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(pg => (
                 <button key={pg} onClick={() => setParam('page', pg)} style={{ width: 38, height: 38, borderRadius: 8, border: pg === page ? 'none' : '1px solid var(--grey-200)', background: pg === page ? 'var(--gold)' : 'var(--white)', color: pg === page ? 'var(--text-on-gold)' : 'var(--text-primary)', fontWeight: pg === page ? 700 : 400, cursor: 'pointer', fontSize: 14 }}>
                   {pg}
@@ -153,13 +177,17 @@ export default function ProductListPage() {
       </div>
 
       <style>{`
+        .mobile-filter-panel { display: none; }
+        .mobile-filter-btn { display: none; }
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: '240px 1fr'"] { grid-template-columns: 1fr !important; }
-          div[style*="repeat(3, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
-          aside { display: none; }
+          .product-list-layout { grid-template-columns: 1fr !important; }
+          .product-list-sidebar { display: none !important; }
+          .mobile-filter-btn { display: inline-flex !important; }
+          .mobile-filter-panel { display: block !important; }
+          .product-grid-3 { grid-template-columns: repeat(2, 1fr) !important; }
         }
-        @media (max-width: 500px) {
-          div[style*="repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+        @media (max-width: 480px) {
+          .product-grid-3 { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
