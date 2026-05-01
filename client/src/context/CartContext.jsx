@@ -14,12 +14,27 @@ export function CartProvider({ children }) {
     try {
       const res = await api.get('/cart');
       setCart(res.data.cart || { items: [] });
-    } catch (_) {}
+    } catch (_) {
+      setCart({ items: [] });
+    }
   }, []);
 
-  useEffect(() => { fetchCart(); }, [user, fetchCart]);
+  useEffect(() => { 
+    if (!user) {
+      // Clear cart locally immediately on logout, before fetching guest cart
+      setCart({ items: [] });
+    }
+    fetchCart(); 
+  }, [user, fetchCart]);
 
   const addToCart = async (productId, quantity = 1) => {
+    if (!user) {
+      toast.error('Please login to add items to your cart 🛒', {
+        icon: '🔒',
+        style: { borderRadius: '10px', background: '#333', color: '#fff' }
+      });
+      return;
+    }
     setLoading(true);
     try {
       const res = await api.post('/cart', { productId, quantity, action: 'add' });
@@ -72,4 +87,5 @@ export function CartProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => useContext(CartContext);

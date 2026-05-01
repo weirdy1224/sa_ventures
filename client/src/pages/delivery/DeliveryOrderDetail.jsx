@@ -119,7 +119,7 @@ export default function DeliveryOrderDetail() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {order.products?.map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--grey-100)' }}>
-                  <img src={item.imageUrl || 'https://via.placeholder.com/44'} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover' }} />
+                  <img src={item.imageUrl || 'https://placehold.co/44'} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover' }} />
                   <div style={{ flex: 1 }}>
                     <div style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: 14 }}>{item.name}</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: 12 }}>x{item.quantity}</div>

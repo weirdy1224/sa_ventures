@@ -95,7 +95,7 @@ export default function PortalTopbar({ role, onMenuClick }) {
         </button>
 
         {/* User Info */}
-        <div style={{ textAlign: 'right' }}>
+        <div className="topbar-user-info" style={{ textAlign: 'right' }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>{user?.name}</div>
           <span className={`badge badge-gold`} style={{ fontSize: 10 }}>{role}</span>
         </div>
@@ -118,7 +118,14 @@ export default function PortalTopbar({ role, onMenuClick }) {
         </div>
       </div>
 
-      <style>{`@media (max-width: 1024px) { .sidebar-toggle { display: flex !important; } }`}</style>
+      <style>{`
+        @media (max-width: 1024px) { .sidebar-toggle { display: flex !important; } }
+        @media (max-width: 640px) {
+          .topbar-user-info { display: none !important; }
+          .portal-topbar h1 { font-size: 14px; }
+          .portal-topbar p { display: none; }
+        }
+      `}</style>
     </div>
   );
 }

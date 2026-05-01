@@ -64,7 +64,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                 const price = p?.salePrice || p?.price || 0;
                 return (
                   <div key={i} style={{ display: 'flex', gap: 14, padding: '12px 0', borderBottom: '1px solid var(--grey-100)' }}>
-                    <img src={p?.images?.[0] || 'https://via.placeholder.com/64?text=P'} alt={p?.name} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />
+                    <img src={p?.images?.[0] || 'https://placehold.co/64x64?text=P'} alt={p?.name} style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 8, flexShrink: 0 }} />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ margin: '0 0 4px', fontWeight: 600, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p?.name || 'Product'}</p>
                       <p style={{ margin: '0 0 8px', fontSize: 13, color: 'var(--text-secondary)' }}>{formatPrice(price)} each</p>

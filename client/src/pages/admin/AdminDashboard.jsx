@@ -18,10 +18,10 @@ export default function AdminDashboard() {
 
   if (loading) return (
     <div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 28 }}>
+      <div className="admin-kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 28 }}>
         {[1,2,3,4].map(i => <div key={i} className="skeleton" style={{ height: 120, borderRadius: 16 }} />)}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20 }}>
+      <div className="admin-chart-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20 }}>
         <div className="skeleton" style={{ height: 320, borderRadius: 16 }} />
         <div className="skeleton" style={{ height: 320, borderRadius: 16 }} />
       </div>
@@ -45,7 +45,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 24 }}>
+      <div className="admin-kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 24 }}>
         <StatsCard icon="💰" label="Total Revenue" value={formatPrice(data?.totalRevenue || 0)} color="var(--gold)" />
         <StatsCard icon="🧾" label="Total Orders" value={data?.totalOrders || 0} color="var(--accent-blue)" />
         <StatsCard icon="👥" label="New Customers" value={data?.newCustomers || 0} color="var(--accent-green)" />
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginBottom: 24 }}>
+      <div className="admin-chart-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, marginBottom: 24 }}>
         {/* Revenue Chart */}
         <div className="card" style={{ padding: 24 }}>
           <h3 style={{ margin: '0 0 20px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>Revenue Trend</h3>
@@ -118,11 +118,14 @@ export default function AdminDashboard() {
 
       <style>{`
         @media (max-width: 1024px) {
-          div[style*="repeat(4, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
-          div[style*="2fr 1fr"] { grid-template-columns: 1fr !important; }
+          .admin-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+          .admin-chart-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 640px) {
-          div[style*="repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
+          .admin-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .admin-kpi-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

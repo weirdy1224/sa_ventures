@@ -21,6 +21,10 @@ exports.createReview = async (req, res) => {
     if (existing) return res.status(409).json({ error: 'You have already reviewed this product' });
 
     const review = await Review.create({ product: productId, customer: req.user._id, rating, comment, status: 'pending' });
+    
+    // Add review to product's reviews array
+    await Product.findByIdAndUpdate(productId, { $push: { reviews: review._id } });
+
     res.status(201).json({ review, message: 'Review submitted for moderation' });
   } catch (err) { res.status(500).json({ error: err.message }); }
 };

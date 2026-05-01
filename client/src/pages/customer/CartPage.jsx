@@ -29,7 +29,7 @@ export default function CartPage() {
         <button onClick={clearCart} style={{ background: 'none', border: 'none', color: 'var(--accent-red)', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>🗑 Clear Cart</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 32 }}>
+      <div className="cart-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 32 }}>
         {/* Items */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {cart.items.map((item, i) => {
@@ -37,7 +37,7 @@ export default function CartPage() {
             const price = p?.salePrice || p?.price || 0;
             return (
               <div key={i} style={{ display: 'flex', gap: 20, padding: '24px 0', borderBottom: '1px solid var(--grey-100)', alignItems: 'center' }}>
-                <img src={p?.images?.[0] || 'https://via.placeholder.com/96?text=P'} alt={p?.name} style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 12, flexShrink: 0 }} />
+                <img src={p?.images?.[0] || 'https://placehold.co/96x96?text=P'} alt={p?.name} style={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 12, flexShrink: 0 }} />
                 <div style={{ flex: 1 }}>
                   <h3 style={{ margin: '0 0 6px', fontSize: 16, fontWeight: 600 }}>{p?.name}</h3>
                   <p style={{ margin: '0 0 12px', color: 'var(--text-secondary)', fontSize: 13 }}>{formatPrice(price)} per item</p>
@@ -100,7 +100,11 @@ export default function CartPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: '1fr 360px'"] { grid-template-columns: 1fr !important; }
+          .cart-layout { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .cart-item-row { flex-direction: column; gap: 12px; }
+          .cart-item-row img { width: 72px; height: 72px; }
         }
       `}</style>
     </div>

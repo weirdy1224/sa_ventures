@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema({
   },
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   expectedDelivery: Date,
-  razorpayOrderId: { type: String, required: true },
+  razorpayOrderId: { type: String },
   razorpayPaymentId: String,
   paymentStatus: {
     type: String,

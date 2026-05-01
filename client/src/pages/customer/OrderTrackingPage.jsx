@@ -112,7 +112,7 @@ export default function OrderTrackingPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {order.products?.map((item, i) => (
             <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--grey-100)' }}>
-              <img src={item.imageUrl || 'https://via.placeholder.com/56'} alt={item.name} style={{ width: 56, height: 56, borderRadius: 8, objectFit: 'cover' }} />
+              <img src={item.imageUrl || 'https://placehold.co/56x56'} alt={item.name} style={{ width: 56, height: 56, borderRadius: 8, objectFit: 'cover' }} />
               <div style={{ flex: 1 }}>
                 <p style={{ margin: '0 0 2px', fontWeight: 600, fontSize: 14 }}>{item.name}</p>
                 <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 13 }}>Qty: {item.quantity}</p>

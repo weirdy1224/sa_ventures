@@ -151,15 +151,6 @@ exports.updateStatus = async (req, res) => {
     // Send email
     await sendOrderStatusUpdate(order.customer, order);
 
-    // Reduce stock on delivery
-    if (status === 'delivered') {
-      for (const item of order.products) {
-        await Product.findByIdAndUpdate(item.productId, { $inc: { stock: -item.quantity } });
-      }
-      // Clear cart
-      await Cart.findOneAndUpdate({ user: order.customer._id }, { items: [] });
-    }
-
     res.json({ order });
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
@@ -213,3 +204,99 @@ exports.getCustomerOrders = async (req, res) => {
     res.json({ orders });
   } catch (err) { res.status(500).json({ error: err.message }); }
 };
+
+// POST /api/orders/dummy  (DEV/TEST — skips Razorpay)
+exports.createDummyOrder = async (req, res) => {
+  try {
+    const { addressId, couponCode } = req.body;
+
+    // Get cart
+    const cart = await Cart.findOne({ user: req.user._id }).populate('items.productId');
+    if (!cart?.items?.length) return res.status(400).json({ error: 'Cart is empty' });
+
+    // Get address
+    const user = req.user;
+    const address = addressId
+      ? user.addresses.id(addressId)
+      : user.addresses.find(a => a.isDefault) || user.addresses[0];
+    if (!address) return res.status(400).json({ error: 'No delivery address found. Please add an address first.' });
+
+    // Calculate total — compute salePrice inline (virtuals may not resolve in all contexts)
+    let totalAmount = 0;
+    const products = [];
+    for (const item of cart.items) {
+      const p = item.productId;
+      if (!p) return res.status(400).json({ error: 'One or more products no longer exist' });
+      if (!p.isActive) return res.status(400).json({ error: `"${p.name}" is currently unavailable` });
+      if (p.stock < item.quantity) return res.status(400).json({ error: `Insufficient stock for "${p.name}" (available: ${p.stock})` });
+
+      // Compute price inline — same logic as the virtual
+      const price = (p.discount > 0) ? Math.round(p.price * (1 - p.discount / 100)) : p.price;
+      totalAmount += price * item.quantity;
+      products.push({
+        productId: p._id,
+        name: p.name,
+        quantity: item.quantity,
+        priceAtPurchase: price,
+        imageUrl: p.images?.[0] || '',
+      });
+    }
+
+    // Apply coupon
+    let discountAmount = 0;
+    if (couponCode) {
+      const coupon = await Coupon.findOne({ code: couponCode.toUpperCase() });
+      if (!coupon) return res.status(400).json({ error: 'Invalid coupon code' });
+      if (!coupon.isValid()) return res.status(400).json({ error: 'Coupon is expired or fully used' });
+      discountAmount = Math.round(totalAmount * (coupon.discountPercentage / 100));
+      coupon.currentUses += 1;
+      await coupon.save();
+    }
+
+    const deliveryFee = totalAmount >= 499 ? 0 : 60;
+    const finalAmount = Math.max(totalAmount - discountAmount + deliveryFee, 0);
+
+    // Create order — payment marked as paid immediately (test mode)
+    const order = await Order.create({
+      customer: req.user._id,
+      products,
+      totalAmount: finalAmount,
+      discountAmount,
+      couponCode,
+      paymentStatus: 'paid',
+      status: 'packed',
+      address: {
+        label: address.label,
+        line1: address.line1,
+        line2: address.line2 || '',
+        city: address.city,
+        state: address.state,
+        pincode: address.pincode,
+      },
+      statusHistory: [{ status: 'packed', changedBy: req.user._id, changedAt: new Date() }],
+    });
+
+    // ── Deduct stock immediately at purchase (clamped to min 0) ──────────────
+    for (const item of products) {
+      await Product.findByIdAndUpdate(item.productId, {
+        $inc: { stock: -item.quantity },
+      }).then(async (doc) => {
+        // Clamp: if stock somehow went negative, reset to 0
+        if (doc && doc.stock - item.quantity < 0) {
+          await Product.findByIdAndUpdate(item.productId, { stock: 0 });
+        }
+      });
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // Clear cart
+    cart.items = [];
+    await cart.save();
+
+    res.status(201).json({ order, message: 'Order placed successfully (test mode)' });
+  } catch (err) {
+    console.error('[createDummyOrder]', err.message);
+    res.status(500).json({ error: err.message });
+  }
+};
+

@@ -5,6 +5,7 @@ const { requireRole } = require('../middleware/rbac');
 
 // Customer
 router.post('/', authenticate, requireRole('customer'), ctrl.createOrder);
+router.post('/dummy', authenticate, requireRole('customer'), ctrl.createDummyOrder);
 router.get('/customer/mine', authenticate, requireRole('customer'), ctrl.getCustomerOrders);
 
 // Delivery person

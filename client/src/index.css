@@ -688,3 +688,23 @@ textarea { resize: vertical; }
   /* Portal data table: compact */
   .data-table th, .data-table td { padding: 10px 10px !important; font-size: 12px !important; }
 }
+
+/* ── Portal pages — universal mobile fixes ── */
+@media (max-width: 768px) {
+  /* Tables: always allow horizontal scroll */
+  .table-wrapper { border-radius: var(--radius-md); }
+  .data-table { min-width: 580px; }
+
+  /* Modals: bottom-sheet style on mobile */
+  .modal-overlay { align-items: flex-end !important; padding: 0 !important; }
+  .modal { max-width: 100% !important; border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important; }
+
+  /* Portal content */
+  .portal-content { padding: 16px 12px; }
+}
+
+@media (max-width: 640px) {
+  /* Portal topbar gap */
+  .portal-topbar { gap: 8px; }
+}
+

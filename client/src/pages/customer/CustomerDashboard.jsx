@@ -71,7 +71,7 @@ export default function CustomerDashboard() {
                   </div>
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                     {order.products?.slice(0, 4).map((item, i) => (
-                      <img key={i} src={item.imageUrl || item.productId?.images?.[0] || 'https://via.placeholder.com/48'} alt="" style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover' }} />
+                      <img key={i} src={item.imageUrl || item.productId?.images?.[0] || 'https://placehold.co/48x48'} alt="" style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover' }} />
                     ))}
                     {order.products?.length > 4 && <div style={{ width: 48, height: 48, borderRadius: 8, background: 'var(--grey-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)' }}>+{order.products.length - 4}</div>}
                   </div>
@@ -95,10 +95,10 @@ export default function CustomerDashboard() {
               <Link to="/products" className="btn btn-primary" style={{ marginTop: 16 }}>Explore Products</Link>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+            <div className="wishlist-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
               {wishlist.map(p => (
                 <Link key={p._id} to={`/products/${p._id}`} className="card card-hover" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <img src={p.images?.[0] || 'https://via.placeholder.com/200'} alt={p.name} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', borderRadius: 8 }} />
+                  <img src={p.images?.[0] || 'https://placehold.co/200x200'} alt={p.name} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover', borderRadius: 8 }} />
                   <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
                   <div style={{ fontWeight: 700, color: 'var(--navy)' }}>₹{(p.salePrice || p.price).toLocaleString('en-IN')}</div>
                 </Link>
@@ -125,7 +125,7 @@ export default function CustomerDashboard() {
       {/* Addresses */}
       {tab === 'addresses' && (
         <div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+          <div className="address-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
             {user?.addresses?.map(addr => (
               <div key={addr._id} className="card" style={{ padding: 20 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
@@ -142,8 +142,12 @@ export default function CustomerDashboard() {
       )}
 
       <style>{`
-        @media (max-width: 640px) {
-          div[style*="repeat(4, 1fr)"], div[style*="repeat(2, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 768px) {
+          .wishlist-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 480px) {
+          .wishlist-grid { grid-template-columns: 1fr !important; }
+          .address-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

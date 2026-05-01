@@ -73,11 +73,11 @@ export default function ProductDetailPage() {
 
   return (
     <div className="container" style={{ padding: '40px 24px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
+      <div className="product-detail-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
         {/* Images */}
         <div>
           <div style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--white)', boxShadow: 'var(--shadow-md)', aspectRatio: '1', marginBottom: 16 }}>
-            <img src={product.images?.[activeImg] || 'https://via.placeholder.com/600?text=HOOOMANS'} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={product.images?.[activeImg] || 'https://placehold.co/600?text=HOOOMANS'} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           {product.images?.length > 1 && (
             <div style={{ display: 'flex', gap: 10 }}>
@@ -211,7 +211,10 @@ export default function ProductDetailPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: '1fr 1fr'"] { grid-template-columns: 1fr !important; }
+          .product-detail-layout { grid-template-columns: 1fr !important; gap: 32px !important; }
+        }
+        @media (max-width: 480px) {
+          .product-detail-layout { gap: 24px !important; }
         }
       `}</style>
     </div>

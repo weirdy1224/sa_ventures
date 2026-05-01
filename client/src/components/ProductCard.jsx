@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
       {/* Image */}
       <Link to={`/products/${product._id}`} style={{ display: 'block', position: 'relative', paddingBottom: '75%', overflow: 'hidden', flexShrink: 0 }}>
         <img
-          src={product.images?.[0] || 'https://via.placeholder.com/400x300?text=HOOOMANS'}
+          src={product.images?.[0] || 'https://placehold.co/400x300?text=HOOOMANS'}
           alt={product.name}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
           onMouseEnter={e => e.target.style.transform = 'scale(1.05)'}

@@ -99,6 +99,9 @@ exports.logout = async (req, res) => {
       }
     }
     res.clearCookie('refreshToken');
+    if (req.session) {
+      req.session.cart = { items: [] };
+    }
     res.json({ message: 'Logged out successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });

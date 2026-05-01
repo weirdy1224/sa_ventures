@@ -90,7 +90,7 @@ export default function ProductManagement() {
               <tr key={p._id}>
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <img src={p.images?.[0] || 'https://via.placeholder.com/44'} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
+                    <img src={p.images?.[0] || 'https://placehold.co/44x44'} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
                     <div>
                       <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
                       <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{p.discount > 0 ? `${p.discount}% OFF` : 'No discount'}</div>

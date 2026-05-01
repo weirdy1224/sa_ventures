@@ -11,13 +11,12 @@ export default function CheckoutPage() {
   const { user } = useAuth();
   const { cart, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
   const [addresses, setAddresses] = useState(user?.addresses || []);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [newAddress, setNewAddress] = useState({ label: 'Home', line1: '', city: '', state: '', pincode: '' });
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [processing, setProcessing] = useState(false);
-  
+
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponError, setCouponError] = useState('');
@@ -29,21 +28,35 @@ export default function CheckoutPage() {
     }
   }, []);
 
+  // ─── DUMMY PAYMENT ────────────────────────────────────────────────────────────
   const handlePayment = async () => {
     if (!selectedAddress && !addresses.length) { toast.error('Please add a delivery address'); return; }
     setProcessing(true);
-
     try {
-      const res = await api.post('/orders', { 
+      await api.post('/orders/dummy', {
         addressId: selectedAddress,
-        couponCode: appliedCoupon?.code || undefined 
+        couponCode: appliedCoupon?.code || undefined,
       });
-      const { razorpayOrderId, amount, currency, key } = res.data;
+      clearCart();
+      toast.success('Order placed successfully! 🎉');
+      navigate('/account');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to place order');
+    }
+    setProcessing(false);
+  };
+  // ─────────────────────────────────────────────────────────────────────────────
 
+  /*
+  // ─── RAZORPAY (commented out for testing) ────────────────────────────────────
+  const handlePaymentRazorpay = async () => {
+    if (!selectedAddress && !addresses.length) { toast.error('Please add a delivery address'); return; }
+    setProcessing(true);
+    try {
+      const res = await api.post('/orders', { addressId: selectedAddress, couponCode: appliedCoupon?.code || undefined });
+      const { razorpayOrderId, amount, currency, key } = res.data;
       const options = {
-        key,
-        amount,
-        currency,
+        key, amount, currency,
         name: 'HOOOMANS – S&A Ventures',
         description: 'Pet Products Order',
         order_id: razorpayOrderId,
@@ -63,19 +76,12 @@ export default function CheckoutPage() {
         theme: { color: '#F2A51A' },
         modal: { ondismiss: () => setProcessing(false) },
       };
-
-      if (window.Razorpay) {
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-      } else {
-        toast.error('Razorpay SDK not loaded. Please check your connection.');
-        setProcessing(false);
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.error || 'Failed to create order');
-      setProcessing(false);
-    }
+      if (window.Razorpay) { const rzp = new window.Razorpay(options); rzp.open(); }
+      else { toast.error('Razorpay SDK not loaded.'); setProcessing(false); }
+    } catch (err) { toast.error(err.response?.data?.error || 'Failed to create order'); setProcessing(false); }
   };
+  // ─────────────────────────────────────────────────────────────────────────────
+  */
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -95,13 +101,13 @@ export default function CheckoutPage() {
   const total = Math.max(cartTotal - discountAmount + delivery, 0);
 
   return (
-    <div className="container" style={{ padding: '40px 24px' }}>
-      <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, marginBottom: 32 }}>Checkout</h1>
+    <div className="container" style={{ padding: '32px 16px' }}>
+      <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, marginBottom: 28 }}>Checkout</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 40 }}>
+      <div className="checkout-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 32, alignItems: 'start' }}>
         {/* Left */}
         <div>
-          {/* Step 1: Address */}
+          {/* Address */}
           <div className="card" style={{ padding: 24, marginBottom: 20 }}>
             <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700 }}>📍 Delivery Address</h2>
             {addresses.map(addr => (
@@ -129,26 +135,26 @@ export default function CheckoutPage() {
                     setSelectedAddress(updatedAddresses.at(-1)?._id);
                     setShowAddressForm(false);
                     toast.success('Address added');
-                  } catch (err) { toast.error('Failed to add address'); }
+                  } catch { toast.error('Failed to add address'); }
                 }} className="btn btn-secondary">Save Address</button>
               </div>
             )}
           </div>
 
-          {/* Step 2: Payment Method */}
+          {/* Payment Method */}
           <div className="card" style={{ padding: 24 }}>
             <h2 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}>💳 Payment Method</h2>
             <div style={{ padding: 16, border: '2px solid var(--gold)', borderRadius: 10, background: 'rgba(242,165,26,0.04)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 600 }}>
-                <span style={{ fontSize: 24 }}>💳</span> Razorpay (Cards, UPI, Net Banking, Wallets)
+                <span style={{ fontSize: 24 }}>🧪</span> Test Mode (Dummy Payment)
               </div>
-              <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>You'll be redirected to Razorpay's secure payment gateway.</p>
+              <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>Orders will be placed directly without a payment gateway for testing purposes.</p>
             </div>
           </div>
         </div>
 
         {/* Right – Summary */}
-        <div>
+        <div className="checkout-summary">
           <div className="card" style={{ padding: 24, position: 'sticky', top: 100 }}>
             <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700 }}>Order Summary</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxHeight: 240, overflowY: 'auto', marginBottom: 16 }}>
@@ -157,29 +163,21 @@ export default function CheckoutPage() {
                 const price = p?.salePrice || p?.price || 0;
                 return (
                   <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                    <img src={p?.images?.[0] || 'https://via.placeholder.com/48'} alt="" style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover' }} />
+                    <img src={p?.images?.[0] || 'https://placehold.co/48x48'} alt="" style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ margin: 0, fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p?.name}</p>
                       <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 12 }}>x{item.quantity}</p>
                     </div>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>{formatPrice(price * item.quantity)}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, flexShrink: 0 }}>{formatPrice(price * item.quantity)}</span>
                   </div>
                 );
               })}
             </div>
+
             <div style={{ borderTop: '1px solid var(--grey-100)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              
-              {/* Coupon Section */}
+              {/* Coupon */}
               <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                <input 
-                  type="text" 
-                  placeholder="Coupon code" 
-                  className="form-input" 
-                  style={{ flex: 1, padding: '8px 12px', fontSize: 13 }}
-                  value={couponCode}
-                  onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                  disabled={!!appliedCoupon}
-                />
+                <input type="text" placeholder="Coupon code" className="form-input" style={{ flex: 1, padding: '8px 12px', fontSize: 13, minWidth: 0 }} value={couponCode} onChange={e => setCouponCode(e.target.value.toUpperCase())} disabled={!!appliedCoupon} />
                 {!appliedCoupon ? (
                   <button onClick={handleApplyCoupon} className="btn btn-secondary btn-sm" disabled={!couponCode.trim()}>Apply</button>
                 ) : (
@@ -199,20 +197,19 @@ export default function CheckoutPage() {
                 <span style={{ fontSize: 20, color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>{formatPrice(total)}</span>
               </div>
             </div>
+
             <button onClick={handlePayment} disabled={processing} className="btn btn-primary btn-lg w-full btn-round" style={{ marginTop: 20 }}>
-              {processing ? '⌛ Processing...' : `Pay ${formatPrice(total)} →`}
+              {processing ? '⌛ Placing Order...' : `Place Order — ${formatPrice(total)}`}
             </button>
-            <p style={{ margin: '10px 0 0', textAlign: 'center', fontSize: 12, color: 'var(--text-secondary)' }}>🔒 Secured by Razorpay</p>
+            <p style={{ margin: '10px 0 0', textAlign: 'center', fontSize: 12, color: 'var(--text-secondary)' }}>🧪 Test mode — no real payment</p>
           </div>
         </div>
       </div>
 
-      {/* Razorpay SDK */}
-      <script src="https://checkout.razorpay.com/v1/checkout.js" />
-
       <style>{`
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: '1fr 360px'"] { grid-template-columns: 1fr !important; }
+          .checkout-layout { grid-template-columns: 1fr !important; }
+          .checkout-summary { order: -1; }
         }
       `}</style>
     </div>
