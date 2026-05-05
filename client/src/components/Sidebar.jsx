@@ -1,5 +1,6 @@
 import { NavLink as RNavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import hoomansLogo from '../assets/hoomans_img.png';
 
 const Icon = ({ name }) => {
   const icons = {
@@ -11,6 +12,7 @@ const Icon = ({ name }) => {
     promotions: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>,
     reviews: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>,
     settings: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>,
+    chat: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>,
     logout: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>,
   };
   return icons[name] || null;
@@ -24,6 +26,7 @@ const ADMIN_LINKS = [
   { icon: <Icon name="users" />, label: 'Users', to: '/admin/staff' },
   { icon: <Icon name="promotions" />, label: 'Promotions', to: '/admin/coupons' },
   { icon: <Icon name="reviews" />, label: 'Reviews', to: '/admin/reviews' },
+  { icon: <Icon name="chat" />, label: 'Customer Queries', to: '/admin/customer-queries' },
 ];
 
 const STAFF_LINKS = [
@@ -31,6 +34,7 @@ const STAFF_LINKS = [
   { icon: <Icon name="users" />, label: 'Delivery Persons', to: '/staff/delivery-persons' },
   { icon: <Icon name="analytics" />, label: 'Payments', to: '/staff/payments' },
   { icon: <Icon name="reviews" />, label: 'Reviews', to: '/staff/reviews' },
+  { icon: <Icon name="chat" />, label: 'Customer Queries', to: '/staff/customer-queries' },
 ];
 
 const DELIVERY_LINKS = [
@@ -52,17 +56,12 @@ export default function Sidebar({ role, isOpen, onClose }) {
       {/* Logo */}
       <div style={{ padding: '28px 24px 20px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 4 }}>
-          <div
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 900,
-              fontSize: 24,
-              color: 'var(--portal-sidebar-logo-text)',
-              letterSpacing: '-0.5px',
-              transition: 'color 0.25s',
-            }}
-          >
-            HOOOMANS
+          <div>
+            <img 
+              src={hoomansLogo} 
+              alt="Hooomans Logo" 
+              style={{ height: '36px', width: 'auto', display: 'block' }} 
+            />
           </div>
           <div
             style={{

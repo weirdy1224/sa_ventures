@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
+import hoomansLogo from '../assets/hoomans_img.png';
 
 const NAV_LINKS = [
   { label: 'Fur enhancement', to: '/products?category=fur-enhancement' },
@@ -48,7 +49,7 @@ export default function Navbar() {
         <div style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.8)', fontSize: 13, display: 'flex', justifyContent: 'center', padding: '8px 24px' }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 0 }}>
             <div style={{ fontWeight: 500, marginLeft: 18 }}>
-              🐾 Free Shipping on Orders Over ₹500!
+               Free Shipping on Orders Over ₹500!
             </div>
             <div className="navbar-topbar-links" style={{ display: 'flex', gap: 16 }}>
               <Link to="/delivery" style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 500 }}>Delivery Portal</Link>
@@ -62,7 +63,7 @@ export default function Navbar() {
         <div className="navbar-main container" style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 24px' }}>
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-            <div className="navbar-logo" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, color: 'var(--navy)', letterSpacing: '-0.5px' }}>HOOOMANS</div>
+            <img src={hoomansLogo} alt="Hooomans Logo" style={{ height: '70px', width: 'auto', display: 'block' }} />
           </Link>
 
           {/* Search bar */}
@@ -114,17 +115,17 @@ export default function Navbar() {
                         <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{user.email}</div>
                         <span className={`badge badge-${user.role === 'customer' ? 'blue' : 'gold'}`} style={{ marginTop: 4 }}>{user.role}</span>
                       </div>
-                      {user.role === 'customer' && <MenuItem to="/account" icon="📋" label="My Account" onClick={() => setUserMenu(false)} />}
-                      {portalLink && <MenuItem to={portalLink} icon="⚙️" label="Dashboard" onClick={() => setUserMenu(false)} />}
+                      {user.role === 'customer' && <MenuItem to="/account" icon="" label="My Account" onClick={() => setUserMenu(false)} />}
+                      {portalLink && <MenuItem to={portalLink} icon="️" label="Dashboard" onClick={() => setUserMenu(false)} />}
                       <button onClick={handleLogout} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderRadius: 8, cursor: 'pointer', background: 'none', border: 'none', fontSize: 14, color: 'var(--accent-red)', fontWeight: 500 }}
                         onMouseEnter={e => e.currentTarget.style.background = '#FEF2F2'}
                         onMouseLeave={e => e.currentTarget.style.background = 'none'}
-                      >🚪 Sign Out</button>
+                      > Sign Out</button>
                     </>
                   ) : (
                     <>
-                      <MenuItem to="/login" icon="🔑" label="Sign In" onClick={() => setUserMenu(false)} />
-                      <MenuItem to="/register" icon="✨" label="Create Account" onClick={() => setUserMenu(false)} />
+                      <MenuItem to="/login" icon="" label="Sign In" onClick={() => setUserMenu(false)} />
+                      <MenuItem to="/register" icon="" label="Create Account" onClick={() => setUserMenu(false)} />
                     </>
                   )}
                 </div>
@@ -138,7 +139,7 @@ export default function Navbar() {
               className="mobile-menu-btn"
               style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, padding: 6, color: 'var(--text-primary)' }}
             >
-              {mobileMenu ? '✕' : '☰'}
+              {mobileMenu ? '✕' : ''}
             </button>
           </div>
         </div>
@@ -173,21 +174,21 @@ export default function Navbar() {
                   <div style={{ fontWeight: 700 }}>{user.name}</div>
                   <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{user.email}</div>
                 </div>
-                {user.role === 'customer' && <MobileLink to="/account" label="📋 My Account" onClick={() => setMobileMenu(false)} />}
-                {portalLink && <MobileLink to={portalLink} label="⚙️ Dashboard" onClick={() => setMobileMenu(false)} />}
-                <button onClick={() => { handleLogout(); setMobileMenu(false); }} style={{ width: '100%', textAlign: 'left', padding: '11px 20px', background: 'none', border: 'none', fontSize: 14, color: 'var(--accent-red)', fontWeight: 500, cursor: 'pointer' }}>🚪 Sign Out</button>
+                {user.role === 'customer' && <MobileLink to="/account" label=" My Account" onClick={() => setMobileMenu(false)} />}
+                {portalLink && <MobileLink to={portalLink} label="️ Dashboard" onClick={() => setMobileMenu(false)} />}
+                <button onClick={() => { handleLogout(); setMobileMenu(false); }} style={{ width: '100%', textAlign: 'left', padding: '11px 20px', background: 'none', border: 'none', fontSize: 14, color: 'var(--accent-red)', fontWeight: 500, cursor: 'pointer' }}> Sign Out</button>
               </>
             ) : (
               <>
-                <MobileLink to="/login" label="🔑 Sign In" onClick={() => setMobileMenu(false)} />
-                <MobileLink to="/register" label="✨ Create Account" onClick={() => setMobileMenu(false)} />
+                <MobileLink to="/login" label=" Sign In" onClick={() => setMobileMenu(false)} />
+                <MobileLink to="/register" label=" Create Account" onClick={() => setMobileMenu(false)} />
               </>
             )}
             <div style={{ borderTop: '1px solid var(--grey-100)', marginTop: 8, paddingTop: 8 }}>
               <div style={{ padding: '4px 20px 8px', fontSize: 11, fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>Portals</div>
-              <MobileLink to="/delivery" label="🚚 Delivery Portal" onClick={() => setMobileMenu(false)} />
-              <MobileLink to="/staff" label="👔 Staff Portal" onClick={() => setMobileMenu(false)} />
-              <MobileLink to="/admin" label="🛠 Admin" onClick={() => setMobileMenu(false)} />
+              <MobileLink to="/delivery" label=" Delivery Portal" onClick={() => setMobileMenu(false)} />
+              <MobileLink to="/staff" label=" Staff Portal" onClick={() => setMobileMenu(false)} />
+              <MobileLink to="/admin" label=" Admin" onClick={() => setMobileMenu(false)} />
             </div>
           </div>
         )}

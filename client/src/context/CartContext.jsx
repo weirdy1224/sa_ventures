@@ -29,8 +29,8 @@ export function CartProvider({ children }) {
 
   const addToCart = async (productId, quantity = 1) => {
     if (!user) {
-      toast.error('Please login to add items to your cart 🛒', {
-        icon: '🔒',
+      toast.error('Please login to add items to your cart ', {
+        icon: '',
         style: { borderRadius: '10px', background: '#333', color: '#fff' }
       });
       return;

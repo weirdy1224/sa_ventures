@@ -6,7 +6,7 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
     });
-    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
+    console.log(` MongoDB connected: ${conn.connection.host}`);
 
     mongoose.connection.on('error', (err) => console.error('MongoDB error:', err));
     mongoose.connection.on('disconnected', () => {
@@ -14,7 +14,7 @@ const connectDB = async () => {
       setTimeout(connectDB, 5000);
     });
   } catch (err) {
-    console.error('❌ MongoDB connection failed:', err.message);
+    console.error(' MongoDB connection failed:', err.message);
     process.exit(1);
   }
 };

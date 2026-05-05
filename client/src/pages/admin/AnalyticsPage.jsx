@@ -35,18 +35,18 @@ export default function AnalyticsPage() {
           {['daily', 'weekly', 'monthly'].map(r => (
             <button key={r} onClick={() => setRange(r)} className={`btn btn-sm ${r === range ? 'btn-primary' : 'btn-ghost'}`} style={{ textTransform: 'capitalize', color: r !== range ? 'var(--text-secondary)' : '', border: r !== range ? '1px solid var(--portal-border)' : '' }}>{r}</button>
           ))}
-          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}>📄 PDF</button>
-          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}>📊 CSV</button>
+          <button onClick={() => handleExport('pdf')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}> PDF</button>
+          <button onClick={() => handleExport('csv')} disabled={exporting} className="btn btn-sm" style={{ background: 'var(--portal-card-bg)', border: '1px solid var(--portal-border)', color: 'var(--text-secondary)' }}> CSV</button>
         </div>
       </div>
 
       {data && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
           {[
-            { icon: '💰', label: 'Revenue', value: `₹${(data.totalRevenue || 0).toLocaleString('en-IN')}` },
-            { icon: '🧾', label: 'Orders', value: data.totalOrders || 0 },
-            { icon: '👥', label: 'New Customers', value: data.newCustomers || 0 },
-            { icon: '📦', label: 'Top Category', value: data.topProducts?.[0]?.name || '—' },
+            { icon: '', label: 'Revenue', value: `₹${(data.totalRevenue || 0).toLocaleString('en-IN')}` },
+            { icon: '', label: 'Orders', value: data.totalOrders || 0 },
+            { icon: '', label: 'New Customers', value: data.newCustomers || 0 },
+            { icon: '', label: 'Top Category', value: data.topProducts?.[0]?.name || '—' },
           ].map(s => (
             <div key={s.label} className="card" style={{ padding: 20 }}>
               <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>

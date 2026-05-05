@@ -9,7 +9,7 @@ const DELIVERY_STATUSES = ['shipped', 'nearest_hub', 'yet_to_deliver', 'delivere
 
 export default function DeliveryOrderDetail() {
   const { id } = useParams();
-  const socket = useSocket();
+  const { socket } = useSocket();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [photo, setPhoto] = useState(null);
@@ -71,7 +71,7 @@ export default function DeliveryOrderDetail() {
           <div>
             <h1 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 20, fontWeight: 700 }}>Order #{id?.slice(-8).toUpperCase()}</h1>
             <p style={{ margin: '4px 0 0', color: 'var(--text-secondary)', fontSize: 13 }}>
-              📍 {order.address?.line1}, {order.address?.city}, {order.address?.state} – {order.address?.pincode}
+               {order.address?.line1}, {order.address?.city}, {order.address?.state} – {order.address?.pincode}
             </p>
           </div>
           <OrderStatusBadge status={order.status} />
@@ -82,7 +82,7 @@ export default function DeliveryOrderDetail() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {/* Status Update */}
           <div className="card" style={{ padding: 22 }}>
-            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>🔄 Update Status</h3>
+            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}> Update Status</h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               {DELIVERY_STATUSES.map(s => (
                 <button key={s} onClick={() => updateStatus(s)} disabled={s === order.status} style={{
@@ -98,13 +98,13 @@ export default function DeliveryOrderDetail() {
 
           {/* Proof of Delivery */}
           <div className="card" style={{ padding: 22 }}>
-            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>📸 Proof of Delivery</h3>
+            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}> Proof of Delivery</h3>
             <input type="file" accept="image/*" ref={fileRef} onChange={e => setPhoto(e.target.files[0])} style={{ display: 'none' }} />
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <button onClick={() => fileRef.current.click()} style={{ padding: '11px 18px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: photo ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)', color: photo ? 'var(--accent-green)' : 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
-                {photo ? `✅ ${photo.name}` : '📷 Select Photo'}
+                {photo ? ` ${photo.name}` : ' Select Photo'}
               </button>
-              {photo && <button onClick={uploadPhoto} disabled={uploading} className="btn btn-success">{uploading ? 'Uploading...' : '⬆️ Upload'}</button>}
+              {photo && <button onClick={uploadPhoto} disabled={uploading} className="btn btn-success">{uploading ? 'Uploading...' : '️ Upload'}</button>}
             </div>
             {order.photos?.length > 0 && (
               <div style={{ display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
@@ -115,7 +115,7 @@ export default function DeliveryOrderDetail() {
 
           {/* Order Items */}
           <div className="card" style={{ padding: 22 }}>
-            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>🛍️ Items</h3>
+            <h3 style={{ margin: '0 0 16px', color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>️ Items</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {order.products?.map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--grey-100)' }}>
@@ -133,7 +133,7 @@ export default function DeliveryOrderDetail() {
         {/* Chat Panel */}
         <div className="card" style={{ padding: 0, display: 'flex', flexDirection: 'column', height: 480 }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--grey-100)' }}>
-            <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}>💬 Chat with Staff</h3>
+            <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: 15, fontWeight: 700 }}> Chat with Staff</h3>
           </div>
           <div style={{ flex: 1, padding: 16, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
             {chatMessages.length === 0 && <p style={{ color: 'var(--text-secondary)', textAlign: 'center', fontSize: 13 }}>No messages yet...</p>}

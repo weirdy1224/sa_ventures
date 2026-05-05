@@ -46,10 +46,10 @@ export default function AdminDashboard() {
 
       {/* KPI Cards */}
       <div className="admin-kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 24 }}>
-        <StatsCard icon="💰" label="Total Revenue" value={formatPrice(data?.totalRevenue || 0)} color="var(--gold)" />
-        <StatsCard icon="🧾" label="Total Orders" value={data?.totalOrders || 0} color="var(--accent-blue)" />
-        <StatsCard icon="👥" label="New Customers" value={data?.newCustomers || 0} color="var(--accent-green)" />
-        <StatsCard icon="⭐" label="Top Product Revenue" value={formatPrice(data?.topProducts?.[0]?.revenue || 0)} color="var(--accent-purple)" />
+        <StatsCard icon="" label="Total Revenue" value={formatPrice(data?.totalRevenue || 0)} color="var(--gold)" />
+        <StatsCard icon="" label="Total Orders" value={data?.totalOrders || 0} color="var(--accent-blue)" />
+        <StatsCard icon="" label="New Customers" value={data?.newCustomers || 0} color="var(--accent-green)" />
+        <StatsCard icon="" label="Top Product Revenue" value={formatPrice(data?.topProducts?.[0]?.revenue || 0)} color="var(--accent-purple)" />
       </div>
 
       {/* Charts */}

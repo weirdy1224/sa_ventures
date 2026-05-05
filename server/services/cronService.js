@@ -82,7 +82,7 @@ const startCronJobs = () => {
     } catch (err) { console.error('[Cron] Analytics cache error:', err.message); }
   });
 
-  console.log('✅ Cron jobs started');
+  console.log(' Cron jobs started');
 };
 
 module.exports = { startCronJobs };

@@ -4,11 +4,11 @@ import api from '../../api/axiosInstance';
 import ProductCard from '../../components/ProductCard';
 
 const CATEGORIES = [
-  { name: 'Fur enhancement / Skin & Coat', icon: '✨', slug: 'fur-enhancement', image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Reduce Shedding Supplements', icon: '🐕', slug: 'reduce-shedding', image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Bone / Joint Health Tablets', icon: '🦴', slug: 'bone-joint-health', image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Tick Prevention Tablets (Oral)', icon: '🛡️', slug: 'tick-prevention', image: 'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?q=80&w=600&auto=format&fit=crop' },
-  { name: 'Hydration / Electrolyte Tablets', icon: '💧', slug: 'hydration-electrolyte', image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Fur enhancement / Skin & Coat', icon: '', slug: 'fur-enhancement', image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Reduce Shedding Supplements', icon: '', slug: 'reduce-shedding', image: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Bone / Joint Health Tablets', icon: '', slug: 'bone-joint-health', image: 'https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Tick Prevention Tablets (Oral)', icon: '️', slug: 'tick-prevention', image: 'https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?q=80&w=600&auto=format&fit=crop' },
+  { name: 'Hydration / Electrolyte Tablets', icon: '', slug: 'hydration-electrolyte', image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=600&auto=format&fit=crop' },
 ];
 
 export default function HomePage() {
@@ -38,7 +38,7 @@ export default function HomePage() {
         <div className="container hero-inner" style={{ display: 'flex', alignItems: 'center', gap: 60, width: '100%' }}>
           <div className="hero-text" style={{ flex: 1, paddingRight: 20 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'var(--gold)', borderRadius: 99, padding: '8px 16px', marginBottom: 24, marginTop: 20 }}>
-              <span style={{ color: '#B45309', fontSize: 13, fontWeight: 700 }}>🎉 Spring Sale - Up to 50% Off</span>
+              <span style={{ color: '#B45309', fontSize: 13, fontWeight: 700 }}> Spring Sale - Up to 50% Off</span>
             </div>
 
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 64, fontWeight: 700, color: 'var(--navy)', lineHeight: 1.1, margin: '0 0 24px', letterSpacing: '-1px' }}>
@@ -96,7 +96,7 @@ export default function HomePage() {
       <section style={{ background: '#F2A51A', padding: '24px 0' }}>
         <div className="container promo-banner-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <div style={{ fontSize: 36, opacity: 0.9 }}>⚡</div>
+            <div style={{ fontSize: 36, opacity: 0.9 }}></div>
             <div>
               <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, color: 'var(--white)', margin: '0 0 2px', letterSpacing: '-0.3px' }}>
                 Flash Sale - Today Only!
@@ -177,7 +177,7 @@ export default function HomePage() {
       <section style={{ padding: '64px 0 0 0' }}>
         <div style={{ background: 'var(--navy)', width: '100%', padding: '80px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--white)', fontFamily: 'var(--font-display)', fontSize: 36, fontWeight: 900, marginBottom: 16 }}>
-            Join Our Pack! 🐾
+            Join Our Pack! 
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 18, marginBottom: 40, maxWidth: 500 }}>
             Get exclusive deals, pet care tips, and updates delivered to your inbox
@@ -196,7 +196,7 @@ export default function HomePage() {
           </form>
 
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14 }}>
-            🎁 Get 10% off your first order when you subscribe
+             Get 10% off your first order when you subscribe
           </p>
         </div>
       </section>

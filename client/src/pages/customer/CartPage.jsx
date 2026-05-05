@@ -14,10 +14,10 @@ export default function CartPage() {
   if (!cart.items?.length) return (
     <div className="container" style={{ padding: '60px 24px', textAlign: 'center' }}>
       <div style={{ maxWidth: 400, margin: '0 auto' }}>
-        <div style={{ fontSize: 80, marginBottom: 24 }}>🛒</div>
+        <div style={{ fontSize: 80, marginBottom: 24 }}></div>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, marginBottom: 12 }}>Your cart is empty</h1>
         <p style={{ color: 'var(--text-secondary)', marginBottom: 28 }}>Start exploring our premium pet products!</p>
-        <Link to="/products" className="btn btn-primary btn-lg btn-round">Shop Now 🐾</Link>
+        <Link to="/products" className="btn btn-primary btn-lg btn-round">Shop Now </Link>
       </div>
     </div>
   );
@@ -26,7 +26,7 @@ export default function CartPage() {
     <div className="container" style={{ padding: '40px 24px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, margin: 0 }}>Shopping Cart</h1>
-        <button onClick={clearCart} style={{ background: 'none', border: 'none', color: 'var(--accent-red)', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>🗑 Clear Cart</button>
+        <button onClick={clearCart} style={{ background: 'none', border: 'none', color: 'var(--accent-red)', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}> Clear Cart</button>
       </div>
 
       <div className="cart-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 32 }}>
@@ -92,7 +92,7 @@ export default function CartPage() {
             <Link to="/products" style={{ display: 'block', textAlign: 'center', marginTop: 12, fontSize: 13, color: 'var(--text-secondary)' }}>← Continue Shopping</Link>
 
             <div style={{ marginTop: 20, padding: 14, background: 'var(--grey-50)', borderRadius: 8 }}>
-              <p style={{ margin: 0, fontSize: 12, color: 'var(--text-secondary)', textAlign: 'center' }}>🔒 Secure payment powered by Razorpay</p>
+              <p style={{ margin: 0, fontSize: 12, color: 'var(--text-secondary)', textAlign: 'center' }}> Secure payment powered by Razorpay</p>
             </div>
           </div>
         </div>

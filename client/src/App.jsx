@@ -35,6 +35,9 @@ import StaffOrderDetail from './pages/staff/StaffOrderDetail';
 import DeliveryPersonManagement from './pages/staff/DeliveryPersonManagement';
 import PaymentDetails from './pages/staff/PaymentDetails';
 
+// Shared pages
+import CustomerQueriesPage from './pages/shared/CustomerQueriesPage';
+
 // Delivery pages
 import DeliveryDashboard from './pages/delivery/DeliveryDashboard';
 import DeliveryOrderDetail from './pages/delivery/DeliveryOrderDetail';
@@ -73,6 +76,7 @@ export default function App() {
         <Route path="analytics" element={<AnalyticsPage />} />
         <Route path="security" element={<SecurityLogPage />} />
         <Route path="reviews" element={<ReviewModeration />} />
+        <Route path="customer-queries" element={<CustomerQueriesPage />} />
       </Route>
 
       {/* Staff portal */}
@@ -82,6 +86,7 @@ export default function App() {
         <Route path="delivery-persons" element={<DeliveryPersonManagement />} />
         <Route path="payments" element={<PaymentDetails />} />
         <Route path="reviews" element={<ReviewModeration />} />
+        <Route path="customer-queries" element={<CustomerQueriesPage />} />
       </Route>
 
       {/* Delivery portal */}

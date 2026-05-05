@@ -7,7 +7,7 @@
 
 HOOOMANS is a comprehensive, full-stack e-commerce platform built with the MERN stack (MongoDB, Express, React, Node.js). It features a modern, responsive storefront and robust role-based portals for Admins, Staff, and Delivery personnel.
 
-## 🌟 Features
+##  Features
 
 - **Modern UI/UX**: Responsive storefront with a premium visual design, dynamic animations, and dark/light modes.
 - **Robust Authentication**: Cookie-based session management (`express-session`), JWT support, and OAuth integrations (`passport`).
@@ -18,7 +18,7 @@ HOOOMANS is a comprehensive, full-stack e-commerce platform built with the MERN 
 - **Data Visualization**: Rich dashboards with dynamic charts to display traffic, security metrics, and sales (`recharts`).
 - **Security Hardened**: Helmet, Express Rate Limit, CORS protection, and secure cookie architecture.
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### Frontend (Client)
 - **Framework**: React 19 + Vite
@@ -35,7 +35,7 @@ HOOOMANS is a comprehensive, full-stack e-commerce platform built with the MERN 
 - **Communications**: Twilio (SMS), Nodemailer (Email)
 - **Other**: Socket.io (WebSockets), Node-cron (Task Scheduling), PDFKit (Invoices), multer (File Uploads)
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v18+ recommended)
@@ -114,7 +114,7 @@ npm run dev
 
 The client will typically start on `http://localhost:5173` and the server on `http://localhost:5000`.
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 sa_ventures/
@@ -134,5 +134,5 @@ sa_ventures/
     └── package.json
 ```
 
-## 📜 License
+##  License
 This project is licensed under the [ISC](LICENSE) License.

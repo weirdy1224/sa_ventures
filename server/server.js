@@ -14,6 +14,7 @@ const connectDB = require('./config/db');
 const { initPassport } = require('./config/passport');
 const { startCronJobs } = require('./services/cronService');
 const { initSocketHandlers } = require('./sockets/orderSocket');
+const { initChatSocket } = require('./sockets/chatSocket');
 const { rateLimiter, authLimiter } = require('./middleware/rateLimiter');
 
 // Route imports
@@ -31,6 +32,7 @@ const couponRoutes = require('./routes/coupons');
 const proxyContactRoutes = require('./routes/proxyContact');
 const securityLogRoutes = require('./routes/securityLog');
 const uploadRoutes = require('./routes/upload');
+const chatRoutes = require('./routes/chat');
 
 const app = express();
 const server = http.createServer(app);
@@ -40,6 +42,7 @@ const io = new Server(server, {
   cors: { origin: process.env.CLIENT_URL || 'http://localhost:3000', credentials: true },
 });
 initSocketHandlers(io);
+initChatSocket(io);
 app.set('io', io);
 
 // Connect DB
@@ -106,6 +109,7 @@ app.use('/api/security-log', securityLogRoutes);
 app.use('/api/upload-photo', uploadRoutes);
 app.use('/api/location', uploadRoutes);
 app.use('/api/reports', analyticsRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -123,7 +127,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+  console.log(` Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
   startCronJobs();
 });
 

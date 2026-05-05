@@ -23,7 +23,7 @@ export default function ReviewModeration() {
       {loading ? Array(3).fill(0).map((_, i) => <div key={i} className="skeleton" style={{ height: 100, borderRadius: 12, marginBottom: 12 }} />)
         : reviews.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>
-            <div style={{ fontSize: 48 }}>⭐</div>
+            <div style={{ fontSize: 48 }}></div>
             <h3 style={{ color: 'var(--text-primary)' }}>No pending reviews</h3>
           </div>
         ) : (
@@ -35,7 +35,7 @@ export default function ReviewModeration() {
                     <span style={{ fontWeight: 700, color: 'var(--text-primary)', marginRight: 10 }}>{r.customer?.name}</span>
                     <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>on {r.product?.name}</span>
                   </div>
-                  <div>{'⭐'.repeat(r.rating)}</div>
+                  <div>{''.repeat(r.rating)}</div>
                 </div>
                 {r.comment && <p style={{ margin: '0 0 14px', color: 'var(--text-secondary)', fontSize: 14 }}>"{r.comment}"</p>}
                 <div style={{ display: 'flex', gap: 8 }}>

@@ -71,7 +71,7 @@ export default function StaffManagement() {
             <form onSubmit={handleCreate}>
               <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', background: 'rgba(242,165,26,0.08)', border: '1px solid rgba(242,165,26,0.2)', borderRadius: 8, padding: 12 }}>
-                  💡 Login credentials will be automatically emailed to the staff member.
+                   Login credentials will be automatically emailed to the staff member.
                 </p>
                 {[['name', 'Full Name', 'text'], ['email', 'Email Address', 'email'], ['password', 'Initial Password', 'password']].map(([key, label, type]) => (
                   <div key={key} className="form-group">

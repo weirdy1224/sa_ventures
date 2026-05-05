@@ -38,7 +38,7 @@ export default function CheckoutPage() {
         couponCode: appliedCoupon?.code || undefined,
       });
       clearCart();
-      toast.success('Order placed successfully! 🎉');
+      toast.success('Order placed successfully! ');
       navigate('/account');
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to place order');
@@ -68,7 +68,7 @@ export default function CheckoutPage() {
               razorpaySignature: response.razorpay_signature,
             });
             clearCart();
-            toast.success('Payment successful! 🎉');
+            toast.success('Payment successful! ');
             navigate('/account');
           } catch { toast.error('Payment verification failed'); }
         },
@@ -109,7 +109,7 @@ export default function CheckoutPage() {
         <div>
           {/* Address */}
           <div className="card" style={{ padding: 24, marginBottom: 20 }}>
-            <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700 }}>📍 Delivery Address</h2>
+            <h2 style={{ margin: '0 0 20px', fontSize: 18, fontWeight: 700 }}> Delivery Address</h2>
             {addresses.map(addr => (
               <label key={addr._id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: 16, border: `2px solid ${selectedAddress === addr._id ? 'var(--gold)' : 'var(--grey-200)'}`, borderRadius: 10, marginBottom: 12, cursor: 'pointer', background: selectedAddress === addr._id ? 'rgba(242,165,26,0.04)' : 'var(--white)' }}>
                 <input type="radio" name="address" value={addr._id} checked={selectedAddress === addr._id} onChange={() => setSelectedAddress(addr._id)} style={{ marginTop: 2, accentColor: 'var(--gold)' }} />
@@ -143,10 +143,10 @@ export default function CheckoutPage() {
 
           {/* Payment Method */}
           <div className="card" style={{ padding: 24 }}>
-            <h2 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}>💳 Payment Method</h2>
+            <h2 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}> Payment Method</h2>
             <div style={{ padding: 16, border: '2px solid var(--gold)', borderRadius: 10, background: 'rgba(242,165,26,0.04)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 600 }}>
-                <span style={{ fontSize: 24 }}>🧪</span> Test Mode (Dummy Payment)
+                <span style={{ fontSize: 24 }}></span> Test Mode (Dummy Payment)
               </div>
               <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)' }}>Orders will be placed directly without a payment gateway for testing purposes.</p>
             </div>
@@ -199,9 +199,9 @@ export default function CheckoutPage() {
             </div>
 
             <button onClick={handlePayment} disabled={processing} className="btn btn-primary btn-lg w-full btn-round" style={{ marginTop: 20 }}>
-              {processing ? '⌛ Placing Order...' : `Place Order — ${formatPrice(total)}`}
+              {processing ? ' Placing Order...' : `Place Order — ${formatPrice(total)}`}
             </button>
-            <p style={{ margin: '10px 0 0', textAlign: 'center', fontSize: 12, color: 'var(--text-secondary)' }}>🧪 Test mode — no real payment</p>
+            <p style={{ margin: '10px 0 0', textAlign: 'center', fontSize: 12, color: 'var(--text-secondary)' }}> Test mode — no real payment</p>
           </div>
         </div>
       </div>

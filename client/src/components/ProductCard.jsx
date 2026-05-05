@@ -47,7 +47,7 @@ export default function ProductCard({ product }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div className="stars">
               {[1,2,3,4,5].map(s => (
-                <span key={s} className={`star ${s <= Math.round(product.averageRating) ? 'filled' : ''}`} style={{ fontSize: 13 }}>★</span>
+                <span key={s} className={`star ${s <= Math.round(product.averageRating) ? 'filled' : ''}`} style={{ fontSize: 13 }}></span>
               ))}
             </div>
             <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>({product.reviewCount})</span>
@@ -70,7 +70,7 @@ export default function ProductCard({ product }) {
           className="btn btn-primary w-full"
           style={{ marginTop: 6, borderRadius: 8, fontSize: 13 }}
         >
-          {isOutOfStock ? 'Out of Stock' : '🛒 Add to Cart'}
+          {isOutOfStock ? 'Out of Stock' : ' Add to Cart'}
         </button>
       </div>
     </div>

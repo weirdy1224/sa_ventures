@@ -26,16 +26,16 @@ export default function CustomerDashboard() {
   }, []);
 
   const TABS = [
-    { key: 'orders', label: '📋 My Orders' },
-    { key: 'wishlist', label: '❤️ Wishlist' },
-    { key: 'profile', label: '👤 Profile' },
-    { key: 'addresses', label: '📍 Addresses' },
+    { key: 'orders', label: ' My Orders' },
+    { key: 'wishlist', label: '️ Wishlist' },
+    { key: 'profile', label: ' Profile' },
+    { key: 'addresses', label: ' Addresses' },
   ];
 
   return (
     <div className="container" style={{ padding: '40px 24px' }}>
       <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 28, fontWeight: 800, marginBottom: 8 }}>My Account</h1>
-      <p style={{ color: 'var(--text-secondary)', marginBottom: 28 }}>Welcome back, {user?.name}! 🐾</p>
+      <p style={{ color: 'var(--text-secondary)', marginBottom: 28 }}>Welcome back, {user?.name}! </p>
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: 0, borderBottom: '2px solid var(--grey-200)', marginBottom: 32, overflowX: 'auto' }}>
@@ -51,7 +51,7 @@ export default function CustomerDashboard() {
             Array(3).fill(0).map((_, i) => <div key={i} className="skeleton" style={{ height: 100, borderRadius: 12, marginBottom: 12 }} />)
           ) : orders.length === 0 ? (
             <div style={{ textAlign: 'center', padding: 48 }}>
-              <div style={{ fontSize: 60 }}>📭</div>
+              <div style={{ fontSize: 60 }}></div>
               <h3>No orders yet</h3>
               <Link to="/products" className="btn btn-primary" style={{ marginTop: 16 }}>Start Shopping</Link>
             </div>
@@ -90,7 +90,7 @@ export default function CustomerDashboard() {
         <div>
           {wishlist.length === 0 ? (
             <div style={{ textAlign: 'center', padding: 48 }}>
-              <div style={{ fontSize: 60 }}>🤍</div>
+              <div style={{ fontSize: 60 }}></div>
               <h3>Your wishlist is empty</h3>
               <Link to="/products" className="btn btn-primary" style={{ marginTop: 16 }}>Explore Products</Link>
             </div>

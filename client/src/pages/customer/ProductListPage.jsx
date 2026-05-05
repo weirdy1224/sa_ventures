@@ -115,7 +115,7 @@ export default function ProductListPage() {
           onClick={() => setFilterOpen(!filterOpen)}
           style={{ fontSize: 13, padding: '8px 16px' }}
         >
-          🔧 {filterOpen ? 'Hide' : 'Show'} Filters
+           {filterOpen ? 'Hide' : 'Show'} Filters
         </button>
       </div>
 
@@ -153,7 +153,7 @@ export default function ProductListPage() {
             </div>
           ) : products.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
-              <div style={{ fontSize: 64, marginBottom: 16 }}>🔍</div>
+              <div style={{ fontSize: 64, marginBottom: 16 }}></div>
               <h3>No products found</h3>
               <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your search or filters</p>
             </div>

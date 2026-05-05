@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import hoomansLogo from '../assets/hoomans_img.png';
 
 const FOOTER_LINKS = {
   'Shop': [
@@ -31,8 +32,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🐾</div>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 22, color: 'var(--white)' }}>HOOOMANS</div>
+              <img src={hoomansLogo} alt="Hooomans Logo" style={{ height: '70px', width: 'auto', display: 'block' }} />
             </div>
             <p style={{ fontSize: 14, lineHeight: 1.7, maxWidth: 280, color: 'rgba(255,255,255,0.6)', marginBottom: 24 }}>
               India's premium pet products store. We believe every pet deserves the best — and so does their human.
@@ -64,7 +64,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="footer-bottom" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>© {new Date().getFullYear()} S&A Ventures · HOOOMANS™. All rights reserved.</p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}> {new Date().getFullYear()} S&A Ventures · HOOOMANS. All rights reserved.</p>
           <div className="footer-policies" style={{ display: 'flex', gap: 20 }}>
             {['Privacy Policy', 'Terms of Service', 'Shipping Policy'].map(t => (
               <a key={t} href="#" style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', transition: 'color 0.15s' }}

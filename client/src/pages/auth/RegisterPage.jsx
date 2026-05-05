@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import hoomansLogo from '../../assets/hoomans_img.png';
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -16,7 +17,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register({ name: form.name, email: form.email, password: form.password, phone: form.phone });
-      toast.success('Account created! Welcome to HOOOMANS 🐾');
+      toast.success('Account created! Welcome to HOOOMANS ');
       navigate('/');
     } catch (err) { toast.error(err.response?.data?.error || 'Registration failed'); }
     finally { setLoading(false); }
@@ -26,9 +27,8 @@ export default function RegisterPage() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
       <div style={{ width: '100%', maxWidth: 460 }}>
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <Link to="/">
-            <div style={{ width: 56, height: 56, background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, margin: '0 auto 10px', boxShadow: 'var(--shadow-gold)' }}>🐾</div>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 26, color: 'var(--white)', margin: 0 }}>HOOOMANS</h1>
+          <Link to="/" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <img src={hoomansLogo} alt="Hooomans Logo" style={{ height: '100px', width: 'auto', display: 'block', margin: '0 auto 10px' }} />
           </Link>
         </div>
 

@@ -105,7 +105,7 @@ export default function CouponManagement() {
               <div key={c._id} className="card" style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16, position: 'relative' }}>
                 <div style={{ display: 'flex', gap: 20 }}>
                   <div style={{ width: 48, height: 48, background: 'rgba(242,165,26,0.1)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gold)', fontSize: 24, flexShrink: 0 }}>
-                    🏷️
+                    ️
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>

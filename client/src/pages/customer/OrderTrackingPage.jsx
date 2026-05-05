@@ -5,18 +5,18 @@ import { useSocket } from '../../context/SocketContext';
 import OrderStatusBadge from '../../components/OrderStatusBadge';
 
 const STEPS = [
-  { key: 'packed', label: 'Packed', icon: '📦' },
-  { key: 'shipped', label: 'Shipped', icon: '🚚' },
-  { key: 'nearest_hub', label: 'Nearest Hub', icon: '🏪' },
-  { key: 'yet_to_deliver', label: 'Out for Delivery', icon: '🏃' },
-  { key: 'delivered', label: 'Delivered', icon: '✅' },
+  { key: 'packed', label: 'Packed', icon: '' },
+  { key: 'shipped', label: 'Shipped', icon: '' },
+  { key: 'nearest_hub', label: 'Nearest Hub', icon: '' },
+  { key: 'yet_to_deliver', label: 'Out for Delivery', icon: '' },
+  { key: 'delivered', label: 'Delivered', icon: '' },
 ];
 
 const formatDate = (d) => d ? new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
 
 export default function OrderTrackingPage() {
   const { id } = useParams();
-  const socket = useSocket();
+  const { socket } = useSocket();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -83,14 +83,14 @@ export default function OrderTrackingPage() {
       {/* Order Info */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
         <div className="card" style={{ padding: 20 }}>
-          <h3 style={{ margin: '0 0 14px', fontSize: 15, fontWeight: 700 }}>📍 Delivery Address</h3>
+          <h3 style={{ margin: '0 0 14px', fontSize: 15, fontWeight: 700 }}> Delivery Address</h3>
           <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
             {order.address?.line1}{order.address?.line2 ? `, ${order.address.line2}` : ''}<br />
             {order.address?.city}, {order.address?.state} – {order.address?.pincode}
           </p>
         </div>
         <div className="card" style={{ padding: 20 }}>
-          <h3 style={{ margin: '0 0 14px', fontSize: 15, fontWeight: 700 }}>📅 Delivery Timeline</h3>
+          <h3 style={{ margin: '0 0 14px', fontSize: 15, fontWeight: 700 }}> Delivery Timeline</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14 }}>
               <span style={{ color: 'var(--text-secondary)' }}>Ordered On</span>
@@ -108,7 +108,7 @@ export default function OrderTrackingPage() {
 
       {/* Items */}
       <div className="card" style={{ padding: 24 }}>
-        <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700 }}>🛍️ Order Items</h3>
+        <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700 }}>️ Order Items</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {order.products?.map((item, i) => (
             <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--grey-100)' }}>
@@ -130,7 +130,7 @@ export default function OrderTrackingPage() {
       {/* Proof of delivery photos */}
       {order.photos?.length > 0 && (
         <div className="card" style={{ padding: 24, marginTop: 20 }}>
-          <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700 }}>📸 Proof of Delivery</h3>
+          <h3 style={{ margin: '0 0 16px', fontSize: 15, fontWeight: 700 }}> Proof of Delivery</h3>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             {order.photos.map((url, i) => <img key={i} src={url} alt="Proof" style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 8 }} />)}
           </div>

@@ -52,12 +52,12 @@ export default function PortalTopbar({ role, onMenuClick }) {
         }}
         className="sidebar-toggle"
       >
-        ☰
+        
       </button>
 
       <div style={{ flex: 1 }}>
         <h1 style={{ margin: 0, fontSize: 17, fontWeight: 700, color: 'var(--text-primary)' }}>
-          {greeting}, {user?.name?.split(' ')[0]} 👋
+          {greeting}, {user?.name?.split(' ')[0]} 
         </h1>
         <p style={{ margin: 0, fontSize: 12, color: 'var(--text-secondary)' }}>
           {now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}

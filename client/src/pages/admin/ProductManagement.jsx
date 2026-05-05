@@ -75,7 +75,7 @@ export default function ProductManagement() {
       </div>
 
       {/* Search */}
-      <input type="text" placeholder="🔍 Search products..." value={search} onChange={e => setSearch(e.target.value)} className="form-input dark-input" style={{ marginBottom: 20, maxWidth: 400 }} />
+      <input type="text" placeholder=" Search products..." value={search} onChange={e => setSearch(e.target.value)} className="form-input dark-input" style={{ marginBottom: 20, maxWidth: 400 }} />
 
       {/* Table */}
       <div className="card-dark table-wrapper">
@@ -157,7 +157,7 @@ export default function ProductManagement() {
                 <div className="form-group">
                   <label className="form-label" style={{ color: 'var(--text-secondary)' }}>Product Images</label>
                   <button type="button" onClick={() => fileRef.current.click()} style={{ padding: '12px 20px', border: '2px dashed rgba(255,255,255,0.15)', borderRadius: 10, background: 'var(--white)', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: 14, width: '100%' }}>
-                    📷 {files.length ? `${files.length} file(s) selected` : 'Click to upload images'}
+                     {files.length ? `${files.length} file(s) selected` : 'Click to upload images'}
                   </button>
                   <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: 'none' }} onChange={e => setFiles(Array.from(e.target.files))} />
                   {editing?.images?.length > 0 && <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4 }}>{editing.images.length} existing image(s) — new uploads will be appended</div>}

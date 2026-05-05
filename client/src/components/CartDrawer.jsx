@@ -19,7 +19,7 @@ export default function CartDrawer({ isOpen, onClose }) {
   const handleCheckout = () => {
     onClose();
     if (!user) {
-      toast('Please log in to checkout', { icon: '🔐' });
+      toast('Please log in to checkout', { icon: '' });
       navigate('/login');
     } else {
       navigate('/checkout');
@@ -52,7 +52,7 @@ export default function CartDrawer({ isOpen, onClose }) {
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px' }}>
           {!cart.items?.length ? (
             <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <div style={{ fontSize: 64, marginBottom: 16 }}>🛒</div>
+              <div style={{ fontSize: 64, marginBottom: 16 }}></div>
               <h3 style={{ margin: '0 0 8px', color: 'var(--text-primary)' }}>Your cart is empty</h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>Start shopping to add items</p>
               <Link to="/products" onClick={onClose} className="btn btn-primary" style={{ marginTop: 16, display: 'inline-flex' }}>Shop Now</Link>
@@ -76,7 +76,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                           <span style={{ fontWeight: 700, fontSize: 14, color: 'var(--navy)' }}>{formatPrice(price * item.quantity)}</span>
-                          <button onClick={() => deleteItem(p?._id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent-red)', fontSize: 16 }}>🗑</button>
+                          <button onClick={() => deleteItem(p?._id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent-red)', fontSize: 16 }}></button>
                         </div>
                       </div>
                     </div>

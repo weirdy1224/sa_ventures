@@ -41,7 +41,7 @@ export default function ProductDetailPage() {
     try {
       await api.post('/wishlist', { productId: product._id });
       setInWishlist(!inWishlist);
-      toast.success(inWishlist ? 'Removed from wishlist' : 'Added to wishlist ❤️');
+      toast.success(inWishlist ? 'Removed from wishlist' : 'Added to wishlist ️');
     } catch (_) {}
   };
 
@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
             {/* Rating */}
             {product.reviewCount > 0 && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                <div className="stars">{[1,2,3,4,5].map(s => <span key={s} className={`star ${s <= Math.round(product.averageRating) ? 'filled' : ''}`}>★</span>)}</div>
+                <div className="stars">{[1,2,3,4,5].map(s => <span key={s} className={`star ${s <= Math.round(product.averageRating) ? 'filled' : ''}`}></span>)}</div>
                 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>{product.averageRating} ({product.reviewCount} reviews)</span>
               </div>
             )}
@@ -121,9 +121,9 @@ export default function ProductDetailPage() {
             {isOutOfStock ? (
               <span className="badge badge-red">Out of Stock</span>
             ) : product.stock <= 10 ? (
-              <span className="badge badge-orange">⚠️ Only {product.stock} left in stock</span>
+              <span className="badge badge-orange">️ Only {product.stock} left in stock</span>
             ) : (
-              <span className="badge badge-green">✅ In Stock</span>
+              <span className="badge badge-green"> In Stock</span>
             )}
           </div>
 
@@ -135,14 +135,14 @@ export default function ProductDetailPage() {
                 <span style={{ padding: '10px 16px', fontWeight: 700, fontSize: 16, minWidth: 50, textAlign: 'center' }}>{qty}</span>
                 <button onClick={() => setQty(q => Math.min(product.stock, q + 1))} style={{ padding: '10px 16px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, fontWeight: 700 }}>+</button>
               </div>
-              <button onClick={handleAddToCart} id="add-to-cart-detail" className="btn btn-primary btn-lg" style={{ flex: 1, minWidth: 160 }}>🛒 Add to Cart</button>
-              <button onClick={handleWishlist} id="wishlist-btn" style={{ width: 48, height: 48, border: '1.5px solid var(--grey-200)', borderRadius: 10, background: 'none', cursor: 'pointer', fontSize: 22 }}>{inWishlist ? '❤️' : '🤍'}</button>
+              <button onClick={handleAddToCart} id="add-to-cart-detail" className="btn btn-primary btn-lg" style={{ flex: 1, minWidth: 160 }}> Add to Cart</button>
+              <button onClick={handleWishlist} id="wishlist-btn" style={{ width: 48, height: 48, border: '1.5px solid var(--grey-200)', borderRadius: 10, background: 'none', cursor: 'pointer', fontSize: 22 }}>{inWishlist ? '️' : ''}</button>
             </div>
           )}
 
           {/* Trust badges */}
           <div style={{ display: 'flex', gap: 16, padding: '16px 0', borderTop: '1px solid var(--grey-100)', borderBottom: '1px solid var(--grey-100)', flexWrap: 'wrap' }}>
-            {[['🚚', 'Free Delivery on ₹499+'], ['🔒', 'Secure Razorpay Payment'], ['↩️', '7-Day Easy Returns']].map(([icon, label]) => (
+            {[['', 'Free Delivery on ₹499+'], ['', 'Secure Razorpay Payment'], ['️', '7-Day Easy Returns']].map(([icon, label]) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-secondary)' }}>
                 <span>{icon}</span>{label}
               </div>
@@ -177,7 +177,7 @@ export default function ProductDetailPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                     <div>
                       <div style={{ fontWeight: 700, marginBottom: 4 }}>{r.customer?.name || 'Customer'}</div>
-                      <div className="stars">{[1,2,3,4,5].map(s => <span key={s} className={`star ${s <= r.rating ? 'filled' : ''}`}>★</span>)}</div>
+                      <div className="stars">{[1,2,3,4,5].map(s => <span key={s} className={`star ${s <= r.rating ? 'filled' : ''}`}></span>)}</div>
                     </div>
                     <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{new Date(r.createdAt).toLocaleDateString('en-IN')}</span>
                   </div>
@@ -194,7 +194,7 @@ export default function ProductDetailPage() {
                     <label className="form-label">Rating</label>
                     <div className="stars" style={{ gap: 6, fontSize: 28, cursor: 'pointer' }}>
                       {[1,2,3,4,5].map(s => (
-                        <span key={s} onClick={() => setReviewForm(f => ({ ...f, rating: s }))} style={{ cursor: 'pointer', color: s <= reviewForm.rating ? 'var(--gold)' : 'var(--grey-300)' }}>★</span>
+                        <span key={s} onClick={() => setReviewForm(f => ({ ...f, rating: s }))} style={{ cursor: 'pointer', color: s <= reviewForm.rating ? 'var(--gold)' : 'var(--grey-300)' }}></span>
                       ))}
                     </div>
                   </div>

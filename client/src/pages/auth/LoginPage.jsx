@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
+import hoomansLogo from '../../assets/hoomans_img.png';
 
 const ROLE_DASHBOARDS = { admin: '/admin', staff: '/staff', delivery: '/delivery', customer: '/' };
 
@@ -17,7 +18,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const user = await login(form.email, form.password);
-      toast.success(`Welcome back, ${user.name.split(' ')[0]}! 🐾`);
+      toast.success(`Welcome back, ${user.name.split(' ')[0]}! `);
       navigate(ROLE_DASHBOARDS[user.role] || '/');
     } catch (err) {
       toast.error(err.response?.data?.error || 'Login failed');
@@ -33,9 +34,8 @@ export default function LoginPage() {
       <div style={{ width: '100%', maxWidth: 440 }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link to="/">
-            <div style={{ width: 60, height: 60, background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, margin: '0 auto 12px', boxShadow: 'var(--shadow-gold)' }}>🐾</div>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 28, color: 'var(--white)', margin: '0 0 4px' }}>HOOOMANS</h1>
+          <Link to="/" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <img src={hoomansLogo} alt="Hooomans Logo" style={{ height: '100px', width: 'auto', display: 'block', margin: '0 auto 12px' }} />
             <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, margin: 0 }}>S&A Ventures</p>
           </Link>
         </div>
@@ -59,7 +59,7 @@ export default function LoginPage() {
               <div style={{ position: 'relative' }}>
                 <input id="password" type={showPassword ? 'text' : 'password'} required value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} placeholder="Your password" className="form-input dark-input" style={{ paddingRight: 44 }} />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 16, color: 'rgba(255,255,255,0.5)' }}>
-                  {showPassword ? '🙈' : '👁'}
+                  {showPassword ? '' : ''}
                 </button>
               </div>
             </div>

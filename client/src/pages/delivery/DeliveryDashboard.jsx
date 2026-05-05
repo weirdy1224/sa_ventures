@@ -36,9 +36,9 @@ export default function DeliveryDashboard() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 28 }}>
         {[
-          { icon: '📦', label: 'Total Assigned', value: stats.total, color: 'var(--gold)' },
-          { icon: '🚚', label: 'Active', value: stats.active, color: 'var(--accent-blue)' },
-          { icon: '✅', label: 'Delivered', value: stats.delivered, color: 'var(--accent-green)' },
+          { icon: '', label: 'Total Assigned', value: stats.total, color: 'var(--gold)' },
+          { icon: '', label: 'Active', value: stats.active, color: 'var(--accent-blue)' },
+          { icon: '', label: 'Delivered', value: stats.delivered, color: 'var(--accent-green)' },
         ].map(s => (
           <div key={s.label} className="card" style={{ padding: 20, display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, background: `${s.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>{s.icon}</div>
@@ -54,7 +54,7 @@ export default function DeliveryDashboard() {
       {loading ? Array(4).fill(0).map((_, i) => <div key={i} className="skeleton" style={{ height: 100, borderRadius: 12, marginBottom: 12 }} />)
         : orders.length === 0 ? (
           <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>
-            <div style={{ fontSize: 60, marginBottom: 16 }}>📭</div>
+            <div style={{ fontSize: 60, marginBottom: 16 }}></div>
             <h3 style={{ color: 'var(--text-primary)' }}>No deliveries assigned</h3>
             <p>Check back soon for new assignments.</p>
           </div>
@@ -65,11 +65,11 @@ export default function DeliveryDashboard() {
                 onMouseEnter={e => { e.currentTarget.style.background = 'var(--portal-table-hover)'; e.currentTarget.style.borderColor = 'var(--gold)'; }}
                 onMouseLeave={e => { e.currentTarget.style.background = 'var(--portal-card-bg, var(--white))'; e.currentTarget.style.borderColor = 'var(--portal-border, var(--grey-100))'; }}
               >
-                <div style={{ width: 48, height: 48, background: 'rgba(242,165,26,0.15)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>📦</div>
+                <div style={{ width: 48, height: 48, background: 'rgba(242,165,26,0.15)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}></div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 700, color: 'var(--portal-text-primary, var(--text-primary))', marginBottom: 4 }}>Order #{o._id?.toString().slice(-8).toUpperCase()}</div>
                   <div style={{ fontSize: 13, color: 'var(--portal-text-secondary, var(--text-secondary))' }}>
-                    📍 {o.address?.line1}, {o.address?.city}
+                     {o.address?.line1}, {o.address?.city}
                   </div>
                 </div>
                 <div style={{ textAlign: 'right', flexShrink: 0 }}>

@@ -40,7 +40,7 @@ exports.sendOrderConfirmation = async (user, order) => {
     <div style="${baseStyles}">
       <div style="background:#031C2E;padding:32px;text-align:center">
         <h1 style="color:#F2A51A;font-size:28px;margin:0">HOOOMANS</h1>
-        <p style="color:rgba(255,255,255,0.7);margin:8px 0 0">Order Confirmed 🎉</p>
+        <p style="color:rgba(255,255,255,0.7);margin:8px 0 0">Order Confirmed </p>
       </div>
       <div style="padding:32px">
         <p>Hi <strong>${user.name}</strong>,</p>
@@ -61,7 +61,7 @@ exports.sendOrderConfirmation = async (user, order) => {
             <td style="text-align:right;font-weight:700;color:#F2A51A">${formatCurrency(order.totalAmount)}</td>
           </tr></tfoot>
         </table>
-        <p style="margin-top:24px;color:#6B7280;font-size:14px">We'll notify you as your order progresses. Thank you for shopping with HOOOMANS! 🐾</p>
+        <p style="margin-top:24px;color:#6B7280;font-size:14px">We'll notify you as your order progresses. Thank you for shopping with HOOOMANS! </p>
       </div>
     </div>`;
   await send(user.email, `Order Confirmed – #${order._id.toString().slice(-6).toUpperCase()}`, html);
@@ -69,11 +69,11 @@ exports.sendOrderConfirmation = async (user, order) => {
 
 exports.sendOrderStatusUpdate = async (user, order) => {
   const statusLabels = {
-    packed: '📦 Order Packed',
-    shipped: '🚚 Order Shipped',
-    nearest_hub: '🏪 At Nearest Hub',
-    yet_to_deliver: '🏠 Out for Delivery',
-    delivered: '✅ Delivered',
+    packed: ' Order Packed',
+    shipped: ' Order Shipped',
+    nearest_hub: ' At Nearest Hub',
+    yet_to_deliver: ' Out for Delivery',
+    delivered: ' Delivered',
   };
   const label = statusLabels[order.status] || order.status;
 
@@ -100,7 +100,7 @@ exports.sendRefundEmail = async (user, order, refund) => {
         <h1 style="color:#F2A51A;font-size:28px;margin:0">HOOOMANS</h1>
       </div>
       <div style="padding:32px">
-        <h2>Refund Initiated 💸</h2>
+        <h2>Refund Initiated </h2>
         <p>Hi <strong>${user.name}</strong>, your refund of <strong>${formatCurrency(order.totalAmount)}</strong> for order <strong>#${order._id.toString().slice(-6).toUpperCase()}</strong> has been initiated.</p>
         <p>Refund ID: <code>${refund.id}</code></p>
         <p style="color:#6B7280;font-size:14px">Please allow 5–7 business days for the amount to reflect in your account.</p>
@@ -113,7 +113,7 @@ exports.sendLowStockAlert = async (products) => {
   const rows = products.map(p => `<tr><td style="padding:8px">${p.name}</td><td style="padding:8px">${p.sku || 'N/A'}</td><td style="padding:8px;color:#EF4444;font-weight:700">${p.stock}</td></tr>`).join('');
   const html = `
     <div style="${baseStyles}">
-      <div style="background:#031C2E;padding:32px;text-align:center"><h1 style="color:#F2A51A;margin:0">⚠️ Low Stock Alert</h1></div>
+      <div style="background:#031C2E;padding:32px;text-align:center"><h1 style="color:#F2A51A;margin:0">️ Low Stock Alert</h1></div>
       <div style="padding:32px">
         <p>The following products have stock below 5 units:</p>
         <table style="width:100%;border-collapse:collapse;margin-top:16px">
@@ -123,7 +123,7 @@ exports.sendLowStockAlert = async (products) => {
         <p style="margin-top:24px;color:#6B7280;font-size:14px">Please restock these items promptly to avoid stockouts.</p>
       </div>
     </div>`;
-  await send(process.env.INVENTORY_EMAIL || 'inventory@hooomans.in', '⚠️ Low Stock Alert – Action Required', html);
+  await send(process.env.INVENTORY_EMAIL || 'inventory@hooomans.in', '️ Low Stock Alert – Action Required', html);
 };
 
 exports.sendStaffCredentials = async (user, password, role) => {
@@ -132,7 +132,7 @@ exports.sendStaffCredentials = async (user, password, role) => {
     <div style="${baseStyles}">
       <div style="background:#031C2E;padding:32px;text-align:center"><h1 style="color:#F2A51A;margin:0">HOOOMANS</h1></div>
       <div style="padding:32px">
-        <h2>Welcome to HOOOMANS, ${user.name}! 👋</h2>
+        <h2>Welcome to HOOOMANS, ${user.name}! </h2>
         <p>Your ${roleLabels[role]} account has been created. Here are your login details:</p>
         <div style="background:#F3F4F6;border-radius:8px;padding:20px;margin:20px 0">
           <p><strong>Email:</strong> ${user.email}</p>
@@ -150,9 +150,9 @@ exports.sendDeliveryConfirmation = async (user, order) => {
     <div style="${baseStyles}">
       <div style="background:#031C2E;padding:32px;text-align:center"><h1 style="color:#F2A51A;margin:0">HOOOMANS</h1></div>
       <div style="padding:32px">
-        <h2>Your order has been delivered! ✅</h2>
+        <h2>Your order has been delivered! </h2>
         <p>Hi <strong>${user.name}</strong>, order <strong>#${order._id.toString().slice(-6).toUpperCase()}</strong> was successfully delivered.</p>
-        <p>We hope you love your purchase! 🐾 Please share your experience by leaving a review.</p>
+        <p>We hope you love your purchase!  Please share your experience by leaving a review.</p>
         <a href="${process.env.CLIENT_URL}/products" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#F2A51A;color:#1a1a2e;border-radius:8px;font-weight:700;text-decoration:none">Write a Review</a>
       </div>
     </div>`;
